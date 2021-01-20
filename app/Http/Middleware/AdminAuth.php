@@ -22,8 +22,8 @@ class AdminAuth
             session()->flash('notif', 'Anda harus login terlebih dahulu');
             return redirect('admin/login');
         }
-        $data = Admin::where('id', session('id'))->first();
-        if ($data->status == 0) {
+        $data = Admin::where('id_admin', session('id_admin'))->first();
+        if ($data->aktif == 0) {
             session()->flash('type', 'error');
             session()->flash('notif', 'Akun anda nonaktif. Silahkan hubungi administrator');
             return redirect('admin/login');

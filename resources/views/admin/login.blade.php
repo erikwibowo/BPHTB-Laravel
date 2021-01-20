@@ -28,13 +28,13 @@
       <form action="{{ route('admin.auth') }}" method="post">
         @csrf
         <div class="input-group mb-3">
-          <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" name="email" value="{{ old('email') }}" autofocus required>
+          <input type="text" class="form-control @error('username') is-invalid @enderror" placeholder="Email" name="username" value="{{ old('username') }}" autofocus required>
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
+              <span class="fas fa-user"></span>
             </div>
           </div>
-          @error('email')
+          @error('username')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>

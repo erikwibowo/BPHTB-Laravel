@@ -1,5 +1,6 @@
 <?php
 
 return [
-    "webname"   => "Laravel Starter"
+    "webname"   => "BPHTB Kab. Pekalongan",
+    "sort_webname" => "BPHTB"
 ];

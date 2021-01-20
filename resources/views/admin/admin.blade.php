@@ -14,14 +14,11 @@
                     <table class="table table-bordered table-hover table-striped datatable yajra-datatable">
                         <thead>
                             <tr>
-                                <th>Photo</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Address</th>
+                                <th>Nama</th>
+                                <th>Username</th>
                                 <th>Level</th>
-                                <th>Status</th>
-                                <th>Login</th>
-                                <th>Action</th>
+                                <th>Aktif</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,40 +38,11 @@
             serverSide: true,
             ajax: "{{ route('admin.admin.index') }}",
             columns: [
-                {
-                    data: 'photo',
-                    name: 'photo'
-                },
-                {
-                    data: 'name',
-                    name: 'name'
-                },
-                {
-                    data: 'email',
-                    name: 'email'
-                },
-                {
-                    data: 'address',
-                    name: 'address'
-                },
-                {
-                    data: 'level',
-                    name: 'level'
-                },
-                {
-                    data: 'status',
-                    name: 'status'
-                },
-                {
-                    data: 'login_at',
-                    name: 'login_at'
-                },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: true
-                },
+                { data: 'nama_admin', name: 'nama_admin'},
+                { data: 'username', name: 'username'},
+                { data: 'level', name: 'level' },
+                { data: 'aktif', name: 'aktif' },
+                { data: 'action', name: 'action', orderable: false, searchable: true },
             ]
         });
     });
@@ -95,14 +63,11 @@
                     _token: "{{ csrf_token() }}"
                 },
                 success: function(data) {
-                    $("#name").val(data.name);
-                    $("#email").val(data.email);
-                    $("#phone").val(data.phone);
-                    $("#address").val(data.address);
-                    $("#status").val(data.status);
+                    $("#nama_admin").val(data.nama_admin);
+                    $("#username").val(data.username);
                     $("#level").val(data.level);
-                    $("#photo").attr("src", "{{ asset('data_file') }}/"+data.photo);
-                    $("#id").val(data.id);
+                    $("#aktif").val(data.aktif);
+                    $("#id").val(data.id_admin);
                 },
             });
         });
@@ -132,49 +97,19 @@
             <form action="{{ route('admin.admin.create') }}" method="POST">
                 @csrf
                 <div class="input-group">
-                    <label>Photo</label>
+                    <label>Nama Admin</label>
                     <div class="input-group">
-                        <div class="custom-file">
-                            <input accept=".jpg,.jpeg,.png" type="file" class="custom-file-input @error('photo') is-invalid @enderror" required>
-                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                        </div>
-                        @error('photo')
+                        <input type="text" class="form-control @error('nama_admin') is-invalid @enderror" placeholder="Nama Admin" name="nama_admin" value="{{ old('nama_admin') }}" required>
+                        @error('nama_admin')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
                 <div class="input-group">
-                    <label>Name</label>
+                    <label>Username</label>
                     <div class="input-group">
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Name" name="name" value="{{ old('name') }}" required>
-                        @error('name')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label>Email</label>
-                    <div class="input-group">
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" name="email" value="{{ old('email') }}" required>
-                        @error('email')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label>Phone</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control @error('phone') is-invalid @enderror" placeholder="Phone" name="phone" value="{{ old('phone') }}" required>
-                        @error('phone')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label>Address</label>
-                    <div class="input-group">
-                        <textarea class="form-control @error('address') is-invalid @enderror" placeholder="Address" name="address" required>{{ old('address') }}</textarea>
-                        @error('address')
+                        <input type="text" class="form-control @error('username') is-invalid @enderror" placeholder="Username" name="username" value="{{ old('username') }}" required>
+                        @error('username')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -192,10 +127,25 @@
                     <label>Level</label>
                     <div class="input-group">
                         <select class="form-control @error('level') is-invalid @enderror" name="level" value="{{ old('level') }}" required>
-                            <option value="ADMIN">ADMIN</option>
-                            <option value="SUPER ADMIN">SUPER ADMIN</option>
+                            <option value="Administrator">Administrator</option>
+                            <option value="Petugas Pendaftaran">Petugas Pendaftaran</option>
+                            <option value="Petugas Verifikator I">Petugas Verifikator I</option>
+                            <option value="Petugas Verifikator II">Petugas Verifikator II</option>
+                            <option value="BPN">BPN</option>
                         </select>
                         @error('level')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Aktif</label>
+                    <div class="input-group">
+                        <select class="form-control @error('aktif') is-invalid @enderror" name="aktif" value="{{ old('aktif') }}" required>
+                            <option value="1">Aktif</option>
+                            <option value="0">Non Aktif</option>
+                        </select>
+                        @error('aktif')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -224,61 +174,27 @@
             <form action="{{ route('admin.admin.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                <center>
-                    <img class="img-circle" src="" id="photo" style="height: auto; width: 10rem">
-                </center>
                 <div class="input-group">
-                    <label>Photo</label>
+                    <label>Nama Admin</label>
                     <div class="input-group">
-                        <div class="custom-file">
-                            <input accept=".jpg,.jpeg,.png" type="file" class="custom-file-input @error('photo') is-invalid @enderror">
-                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                        </div>
-                        @error('photo')
+                        <input type="text" class="form-control @error('nama_admin') is-invalid @enderror" placeholder="Nama Admin" name="nama_admin" id="nama_admin" value="{{ old('nama_admin') }}" required>
+                        @error('nama_admin')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
                 <div class="input-group">
-                    <label>Name</label>
+                    <label>Username</label>
                     <div class="input-group">
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Name" name="name" id="name" value="{{ old('name') }}" required>
-                        <input type="hidden" name="id" id="id">
-                        @error('name')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label>Email</label>
-                    <div class="input-group">
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" name="email" id="email" value="{{ old('email') }}" required>
-                        @error('email')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label>Phone</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control @error('phone') is-invalid @enderror" placeholder="Phone" name="phone" id="phone" value="{{ old('phone') }}" required>
-                        @error('phone')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label>Address</label>
-                    <div class="input-group">
-                        <textarea class="form-control @error('address') is-invalid @enderror" placeholder="Address" name="address" id="address" required>{{ old('address') }}</textarea>
-                        @error('address')
+                        <input type="text" class="form-control @error('username') is-invalid @enderror" placeholder="Username" name="username" id="username" value="{{ old('username') }}" required>
+                        @error('username')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
                 <div class="input-group">
                     <label>Password</label> &nbsp;
-                    <small class="form-text text-muted">Ketikkan password baru jika ingin mengganti password</small>
+                    <small class="form-text text-primary">Ketikkan password baru jika ingin mengganti password</small>
                     <div class="input-group">
                         <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password" autocomplete="off">
                         @error('password')
@@ -290,8 +206,11 @@
                     <label>Level</label>
                     <div class="input-group">
                         <select class="form-control @error('level') is-invalid @enderror" name="level" id="level" value="{{ old('level') }}" required>
-                            <option value="ADMIN">ADMIN</option>
-                            <option value="SUPER ADMIN">SUPER ADMIN</option>
+                            <option value="Administrator">Administrator</option>
+                            <option value="Petugas Pendaftaran">Petugas Pendaftaran</option>
+                            <option value="Petugas Verifikator I">Petugas Verifikator I</option>
+                            <option value="Petugas Verifikator II">Petugas Verifikator II</option>
+                            <option value="BPN">BPN</option>
                         </select>
                         @error('level')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -299,19 +218,20 @@
                     </div>
                 </div>
                 <div class="input-group">
-                    <label>Status</label>
+                    <label>Aktif</label>
                     <div class="input-group">
-                        <select class="form-control @error('status') is-invalid @enderror" name="status" id="status" value="{{ old('status') }}" required>
-                            <option value="1">AKTIF</option>
-                            <option value="0">NON AKTIF</option>
+                        <select class="form-control @error('aktif') is-invalid @enderror" name="aktif" id="aktif" value="{{ old('aktif') }}" required>
+                            <option value="1">Aktif</option>
+                            <option value="0">Non Aktif</option>
                         </select>
-                        @error('status')
+                        @error('aktif')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
         </div>
         <div class="modal-footer justify-content-between">
+            <input type="hidden" name="id" id="id">
             <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </div>

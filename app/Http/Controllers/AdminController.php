@@ -13,24 +13,21 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Admin::latest();
+            $data = Admin::orderBy('dibuat', 'desc');
             return DataTables::of($data)
                 ->addColumn('action', function ($row) {
-                    $btn = '<div class="btn-group"><button type="button" data-id="' . $row->id . '" class="btn btn-primary btn-sm btn-edit"><i class="fa fa-eye"></i></button><button type="button" data-id="' . $row->id . '" data-name="' . $row->name . '" class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash"></i></button></div>';
+                    $btn = '<div class="btn-group"><button type="button" data-id="' . $row->id_admin . '" class="btn btn-primary btn-sm btn-edit"><i class="fa fa-eye"></i></button><button type="button" data-id="' . $row->id_admin . '" data-name="' . $row->nama_admin . '" class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash"></i></button></div>';
                     return $btn;
                 })
-                ->addColumn('status', function ($row) {
-                    if ($row->status == 0) {
-                        $status = '<span class="badge badge-danger">Nonaktif</span>';
+                ->addColumn('aktif', function ($row) {
+                    if ($row->aktif == 0) {
+                        $aktif = '<span class="badge badge-danger">Nonaktif</span>';
                     } else {
-                        $status = '<span class="badge badge-success">Aktif</span>';
+                        $aktif = '<span class="badge badge-success">Aktif</span>';
                     }
-                    return $status;
+                    return $aktif;
                 })
-                ->addColumn('photo', function($row){
-                    return '<img src="'.asset("data_file/".$row->photo).'" class="img-circle" style="width: 3rem; height:auto">';
-                })
-                ->rawColumns(['action', 'status','photo'])
+                ->rawColumns(['action', 'aktif'])
                 ->make(true);
         }
         $x['title'] = "Data Admin";
@@ -40,12 +37,9 @@ class AdminController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'name' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-            'level' => 'required',
-            'status' => 'required',
+            'nama_admin' => 'required',
+            'aktif' => 'required',
+            'level' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -56,25 +50,21 @@ class AdminController extends Controller
 
         if (empty($request->input('password'))) {
             $data = [
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'phone' => $request->input('phone'),
-                'address' => $request->input('address'),
+                'nama_admin' => $request->input('nama_admin'),
+                'username' => $request->input('username'),
                 'level' => $request->input('level'),
-                'status' => $request->input('status')
+                'aktif' => $request->input('aktif'),
             ];
         } else {
             $data = [
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'phone' => $request->input('phone'),
-                'address' => $request->input('address'),
+                'nama_admin' => $request->input('nama_admin'),
+                'username' => $request->input('username'),
                 'password' => Hash::make($request->input('password')),
                 'level' => $request->input('level'),
-                'status' => $request->input('status')
+                'aktif' => $request->input('aktif'),
             ];
         }
-        Admin::where('id', $request->input('id'))->update($data);
+        Admin::where('id_admin', $request->input('id'))->update($data);
         session()->flash('type', 'success');
         session()->flash('notif', 'Data berhasil disimpan');
         return redirect('admin/admin');
@@ -83,10 +73,9 @@ class AdminController extends Controller
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'phone' => 'required',
-            'email' => 'required|email|unique:admins',
-            'name' => 'required',
-            'address' => 'required',
+            'nama_admin' => 'required',
+            'username' => 'required|unique:tb_admin',
+            'aktif' => 'required',
             'level' => 'required',
             'password' => 'required',
         ]);
@@ -98,13 +87,12 @@ class AdminController extends Controller
         }
 
         $data = [
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
-            'address' => $request->input('address'),
+            'nama_admin' => $request->input('nama_admin'),
+            'username' => $request->input('username'),
             'password' => Hash::make($request->input('password')),
             'level' => $request->input('level'),
-            'created_at' => now()
+            'aktif' => $request->input('aktif'),
+            'dibuat' => now()
         ];
         Admin::insert($data);
         session()->flash('type', 'success');
@@ -114,13 +102,13 @@ class AdminController extends Controller
 
     public function data(Request $request)
     {
-        echo json_encode(Admin::where(['id' => $request->input('id')])->first());
+        echo json_encode(Admin::where(['id_admin' => $request->input('id')])->first());
     }
 
     public function delete(Request $request)
     {
         $id = $request->input('id');
-        Admin::where(['id' => $id])->delete();
+        Admin::where(['id_admin' => $id])->delete();
         session()->flash('notif', 'Data berhasil dihapus');
         session()->flash('type', 'success');
         return redirect('admin/admin');
@@ -129,7 +117,7 @@ class AdminController extends Controller
     public function auth(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required',
+            'username' => 'required',
             'password' => 'required',
         ]);
 
@@ -138,22 +126,22 @@ class AdminController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        $email = $request->input('email');
+        $username = $request->input('username');
         $password = $request->input('password');
-        $data = Admin::where(['email' => $email]);
+        $data = Admin::where(['username' => $username]);
         if ($data->count() == 1) {
             $data = $data->first();
-            if ($data->status == 1) {
+            if ($data->aktif == 1) {
                 if (Hash::check($password, $data->password)) {
                     session([
-                        'id' => $data->id,
-                        'name' => $data->name,
+                        'id_admin' => $data->id_admin,
+                        'nama_admin' => $data->nama_admin,
                         'level' => $data->level,
-                        'email' => $data->email,
+                        'username' => $data->username,
                         'login_status' => true
                     ]);
-                    Admin::where("id", $data->id)->update(['login_at' => now()]);
-                    session()->flash('notif', 'Selamat Datang ' . $data->name);
+                    Admin::where("id_admin", $data->id_admin)->update(['login_at' => now()]);
+                    session()->flash('notif', 'Selamat Datang ' . $data->nama_admin);
                     session()->flash('type', 'info');
                     return redirect('admin');
                 } else {
@@ -176,8 +164,8 @@ class AdminController extends Controller
     public function logout()
     {
         session()->flash('type', 'info');
-        session()->flash('notif', 'Sampai jumpa ' . session('name'));
-        session()->forget(['id', 'name', 'login_status']);
+        session()->flash('notif', 'Sampai jumpa ' . session('nama_admin'));
+        session()->forget(['id_admin', 'nama_admin', 'username', 'level', 'login_status']);
         return redirect('admin/login');
     }
 }

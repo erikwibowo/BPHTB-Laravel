@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="{{ asset('template/admin/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">{{ config('variable.webname') }}</span>
+      <span class="brand-text font-weight-light">{{ config('variable.sort_webname') }}</span>
     </a>
 
     <!-- Sidebar -->
@@ -13,19 +13,8 @@
           <img src="{{ asset('template/admin/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ session('name') }}</a>
-        </div>
-      </div>
-
-      <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
+          <a href="#" class="d-block">{{ session('nama_admin') }}</a>
+          <small class="text-light">{{ session('level') }}</small>
         </div>
       </div>
 
@@ -34,17 +23,29 @@
         <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-header">MENU UTAMA</li>
           <li class="nav-item">
             <a href="{{ route('admin.dashboard') }}" class="nav-link {{ Request::segment(2) == '' ? 'active':'' }}">
               <i class="fas fa-tachometer-alt nav-icon"></i>
               <p>Dashboard</p>
             </a>
           </li>
+          <li class="nav-header">MASTER DATA</li>
           <li class="nav-item">
             <a href="{{ route('admin.admin.index') }}" class="nav-link {{ Request::segment(2) == 'admin' ? 'active':'' }}">
               <i class="fas fa-user nav-icon"></i>
               <p>Admin</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.ppat.index') }}" class="nav-link {{ Request::segment(2) == 'ppat' ? 'active':'' }}">
+              <i class="fas fa-users nav-icon"></i>
+              <p>PPAT</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'wp' ? 'active':'' }}">
+              <i class="fas fa-users nav-icon"></i>
+              <p>Wajib Pajak</p>
             </a>
           </li>
           <li class="nav-header">MULTI LEVEL EXAMPLE</li>
