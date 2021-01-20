@@ -56,8 +56,13 @@ Route::group(['prefix' => 'admin',  'middleware' => 'adminauth'], function () {
     Route::post('wp/data', [WpController::class, 'data'])->name('admin.wp.data');
 
     //TRANSAKSI
-    Route::get('transaksi/data', [TransaksiController::class, 'index'])->name('admin.transaksi.index');
-    Route::get('transaksi/didaftarkan', [TransaksiController::class, 'index'])->name('admin.transaksi.didaftarkan');
-    Route::get('transaksi/diperiksa', [TransaksiController::class, 'index'])->name('admin.transaksi.diperiksa');
-    Route::get('transaksi/ditolak', [TransaksiController::class, 'index'])->name('admin.transaksi.ditolak');
+    Route::get('transaksi', [TransaksiController::class, 'index'])->name('admin.transaksi.index');
+    Route::get('transaksi/where', [TransaksiController::class, 'where'])->name('admin.transaksi.where');
+    Route::get('transaksi/didaftarkan', [TransaksiController::class, 'where'])->name('admin.transaksi.didaftarkan');
+    Route::get('transaksi/diperiksa', [TransaksiController::class, 'where'])->name('admin.transaksi.diperiksa');
+    Route::get('transaksi/ditolak', [TransaksiController::class, 'where'])->name('admin.transaksi.ditolak');
+    Route::get('transaksi/diverifikasi', [TransaksiController::class, 'where'])->name('admin.transaksi.diverifikasi');
+    Route::get('transaksi/selesai', [TransaksiController::class, 'where'])->name('admin.transaksi.selesai');
+    Route::get('transaksi/kadaluarsa', [TransaksiController::class, 'where'])->name('admin.transaksi.kadaluarsa');
+    Route::get('transaksi/dihapus', [TransaksiController::class, 'dihapus'])->name('admin.transaksi.dihapus');
 });

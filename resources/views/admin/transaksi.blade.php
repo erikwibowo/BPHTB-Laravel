@@ -5,8 +5,9 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
-                        <select class="form-control">
+                        <select class="form-control" id="tahuns">
                             <option value="2020">Tahun 2020</option>
+                            <option value="2021">Tahun 2021</option>
                         </select>
                     </div>
                 </div>
@@ -91,6 +92,9 @@
                 backdrop: 'static',
                 keyboard: false
             });
+        });
+        $("#tahun").on("change", function(){
+            
         });
     });
 </script>

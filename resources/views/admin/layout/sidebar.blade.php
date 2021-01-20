@@ -81,6 +81,46 @@
                 </a>
               </li>
             </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.transaksi.diverifikasi') }}" class="nav-link  {{ Request::segment(3) == 'diverifikasi' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Diverifikasi</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.transaksi.selesai') }}" class="nav-link  {{ Request::segment(3) == 'selesai' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Selesai</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.transaksi.kadaluarsa') }}" class="nav-link  {{ Request::segment(3) == 'kadaluarsa' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kadaluarsa</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.transaksi.dihapus') }}" class="nav-link  {{ Request::segment(3) == 'dihapus' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dihapus</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.transaksi.index') }}" class="nav-link  {{ Request::segment(2) == 'transaksi' && Request::segment(3) == '' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Semua Transaksi</p>
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>
