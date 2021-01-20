@@ -6,7 +6,7 @@ use App\Models\Wp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-use DataTables;
+use Yajra\DataTables\DataTables;
 
 class WpController extends Controller
 {

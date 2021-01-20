@@ -6,7 +6,7 @@ use App\Models\Ppat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-use DataTables;
+use Yajra\DataTables\DataTables;
 
 class PpatController extends Controller
 {

@@ -6,7 +6,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use DataTables;
+use Yajra\DataTables\DataTables;
 
 class AdminController extends Controller
 {

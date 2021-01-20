@@ -48,76 +48,39 @@
               <p>Wajib Pajak</p>
             </a>
           </li>
-          <li class="nav-header">MULTI LEVEL EXAMPLE</li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fas fa-circle nav-icon"></i>
-              <p>Level 1</p>
-            </a>
-          </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-circle"></i>
+          <li class="nav-header">TRANSAKSI</li>
+          <li class="nav-item  {{ Request::segment(2) == 'transaksi' ? 'menu-open':'' }}">
+            <a href="#" class="nav-link  {{ Request::segment(2) == 'transaksi' ? 'active':'' }}">
+              <i class="nav-icon fas fa-money-bill-wave"></i>
               <p>
-                Level 1
+                DATA TRANSAKSI
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="{{ route('admin.transaksi.didaftarkan') }}" class="nav-link  {{ Request::segment(3) == 'didaftarkan' ? 'active':'' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Level 2</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Level 2
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Level 3</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Level 3</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Level 3</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Level 2</p>
+                  <p>Didaftarkan</p>
                 </a>
               </li>
             </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fas fa-circle nav-icon"></i>
-              <p>Level 1</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link bg-danger" data-toggle="modal" data-target="#modal-logout">
-              <i class="fas fa-lock nav-icon"></i>
-              <p>KELUAR</p>
-            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.transaksi.diperiksa') }}" class="nav-link  {{ Request::segment(3) == 'diperiksa' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Diperiksa</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.transaksi.ditolak') }}" class="nav-link  {{ Request::segment(3) == 'ditolak' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ditolak</p>
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>
