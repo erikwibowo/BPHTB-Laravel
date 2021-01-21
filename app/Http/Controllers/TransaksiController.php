@@ -11,16 +11,15 @@ class TransaksiController extends Controller
 {
     public function index(Request $request)
     {
-        $tahun = $request->input('tahun');
         if ($request->ajax()) {
             $data = Transaksi::orderBy('dibuat', 'desc');
             return DataTables::of($data)
                 ->addColumn('action', function ($row) {
                     $btn = '
                     <div class="btn-group">
-                        <button type="button" data-toggle="tooltip" title="Data" data-id="' . $row->id_transaksi . '" class="btn btn-primary btn-sm btn-edit"><i class="fa fa-eye"></i></button>
-                        <button type="button" data-toggle="tooltip" title="Data" data-id="' . $row->id_transaksi . '" class="btn btn-success btn-sm btn-riwayat"><i class="fa fa-clock"></i></button>
-                        <button type="button" data-toggle="tooltip" title="Data" data-id="' . $row->id_transaksi . '" data-name="' . $row->id_wp . '" class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash"></i></button>
+                        <button type="button" data-toggle="tooltip" title="Lihat/Edit Data" data-id="' . $row->id_transaksi . '" class="btn btn-primary btn-sm btn-edit"><i class="fa fa-eye"></i></button>
+                        <button type="button" data-toggle="tooltip" title="Data Riwayat Transaksi" data-id="' . $row->id_transaksi . '" class="btn btn-success btn-sm btn-riwayat"><i class="fa fa-clock"></i></button>
+                        <button type="button" data-toggle="tooltip" title="Hapus Data" data-id="' . $row->id_transaksi . '" data-name="' . $row->id_transaksi . '" class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash"></i></button>
                     </div>';
                     return $btn;
                 })
@@ -58,7 +57,7 @@ class TransaksiController extends Controller
                 ->rawColumns(['action', 'status', 'nama_wp', 'jenis_transaksi'])
                 ->make(true);
         }
-        $x['title'] = "Data Transaksi ".Str::ucfirst($request->segment(3));
+        $x['title'] = "Data Semua Transaksi ".Str::ucfirst($request->segment(3));
         $x['url']   = route('admin.transaksi.index');
         return view('admin/transaksi', $x);
     }

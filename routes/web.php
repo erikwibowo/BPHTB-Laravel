@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PpatController;
+use App\Http\Controllers\RiwayatTransaksiController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\WpController;
 use Illuminate\Support\Facades\Route;
@@ -65,4 +66,7 @@ Route::group(['prefix' => 'admin',  'middleware' => 'adminauth'], function () {
     Route::get('transaksi/selesai', [TransaksiController::class, 'where'])->name('admin.transaksi.selesai');
     Route::get('transaksi/kadaluarsa', [TransaksiController::class, 'where'])->name('admin.transaksi.kadaluarsa');
     Route::get('transaksi/dihapus', [TransaksiController::class, 'dihapus'])->name('admin.transaksi.dihapus');
+
+    //RIWAYAT TRANSAKSI
+    Route::post('riwayat-transaksi/data-by-transaksi', [RiwayatTransaksiController::class, 'data_by_transaksi'])->name('admin.riwayattransaksi.databytransaksi');
 });

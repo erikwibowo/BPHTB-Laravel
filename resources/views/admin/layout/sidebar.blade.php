@@ -122,6 +122,13 @@
               </li>
             </ul>
           </li>
+          <li class="nav-header"></li>
+          <li class="nav-item">
+            <a href="#" class="nav-link bg-danger" data-toggle="modal" data-target="#modal-logout">
+              <i class="fas fa-lock nav-icon"></i>
+              <p>KELUAR</p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
