@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\RiwayatTransaksi;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Str;
 
@@ -50,9 +51,10 @@ class TransaksiController extends Controller
                         <button type="button" data-toggle="tooltip" title="Riwayat Data" data-id="' . $row->id_transaksi . '" class="btn btn-success btn-sm btn-riwayat"><i class="fa fa-clock"></i></button>';
                     if ($row->dihapus == 1) {
                         $btn .= '<button type="button" data-toggle="tooltip" title="Restore Data" data-id="' . $row->id_transaksi . '" data-name="' . $row->id_wp . '" class="btn btn-warning btn-sm btn-restore"><i class="fa fa-undo-alt"></i></button>';
+                    }else{
+                        $btn .= '<button type="button" data-toggle="tooltip" title="Hapus Data" data-id="' . $row->id_transaksi . '" data-name="' . $row->id_wp . '" class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash"></i></button>';
                     }
-                    $btn .= '<button type="button" data-toggle="tooltip" title="Hapus Data" data-id="' . $row->id_transaksi . '" data-name="' . $row->id_wp . '" class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash"></i></button>
-                    </div>';
+                    $btn .= '</div>';
                     return $btn;
                 })
                 ->addColumn('status', function ($row) {
@@ -112,5 +114,53 @@ class TransaksiController extends Controller
         session()->flash('notif', 'Data berhasil direstore');
         session()->flash('type', 'success');
         return redirect('admin/transaksi/'.$request->input('segment'));
+    }
+
+    public function data_rinci_transaksi(Request $request){
+        $data = DB::select("SELECT a.id_wp, a.id_transaksi, c.nik_wp, c.npwp, c.nama_wp, c.tgl_lahir_wp, c.pekerjaan_wp, c.alamat_wp, c.blok_wp, c.desa_wp, c.kec_wp, c.kab_wp, c.prov_wp, c.kodepos_wp, c.telp_wp, c.email_wp, b.jenis_transaksi, a.id_jenis_transaksi, a.nilai_transaksi, a.njoptkp, a.njkp, a.bphtb, a.dikuasakan, a.id_ppat, d.nama_ppat, a.no_sertifikat_tanah, a.nop, a.luas_tanah, a.luas_bangunan, a.njop_tanah, a.njop_bangunan, a.dibuat as tgl_trans, a.nop, a.nama_wp as nama_wp_trans, a.alamat_wp as alamat_wp_trans, a.desa_op, a.kec_op, a.alamat_op, a.id_transaksi, a.status, a.dibuat, e.kode_billing, e.kadaluarsa, a.nama_petugas_ppat, a.umur_petugas_ppat, a.pekerjaan_petugas_ppat, alamat_petugas_ppat, a.no_hp_petugas_ppat, a.no_ssb, a.id_jenis_transaksi, a.potongan, a.tahun FROM tb_transaksi a JOIN tb_jenis_transaksi b ON a.id_jenis_transaksi = b.id_jenis_transaksi JOIN tb_wp c ON a.id_wp = c.id_wp LEFT JOIN tb_ppat d ON a.id_ppat = d.id_ppat LEFT JOIN tb_billing e ON a.id_transaksi = e.id_transaksi WHERE a.id_transaksi = '$request->id' AND a.dihapus = 0 ORDER BY a.diubah DESC");
+        $arra = array();
+		foreach ($data as $key) {
+        	$arr['tgl_trans']					= $key->tgl_trans;
+        	$arr['nik_wp']						= $key->nik_wp;
+        	$arr['npwp']						= $key->npwp;
+        	$arr['nama_wp']						= $key->nama_wp;
+        	$arr['tgl_lahir_wp']				= $key->tgl_lahir_wp;
+        	$arr['pekerjaan_wp']				= $key->pekerjaan_wp;
+        	$arr['alamat_wp']					= $key->alamat_wp;
+        	$arr['blok_wp']						= $key->blok_wp;
+        	$arr['desa_wp']						= $key->desa_wp;
+        	$arr['kec_wp']						= $key->kec_wp;
+        	$arr['kab_wp']						= $key->kab_wp;
+        	$arr['kodepos_wp']					= $key->kodepos_wp;
+        	$arr['telp_wp']						= $key->telp_wp;
+        	$arr['email_wp']					= $key->email_wp;
+        	$arr['jenis_transaksi']				= $key->jenis_transaksi;
+        	$arr['nilai_transaksi']				= number_format($key->nilai_transaksi, 2, ',','.');
+        	$arr['njoptkp']						= number_format($key->njoptkp, 2, ',','.');
+        	$arr['njkp']						= number_format($key->njkp, 2, ',','.');
+        	$arr['bphtb']						= number_format($key->bphtb, 2, ',','.');
+        	$arr['dikuasakan']					= $key->dikuasakan;
+        	$arr['nama_petugas_ppat']			= $key->nama_petugas_ppat;
+    		$arr['umur_petugas_ppat']			= $key->umur_petugas_ppat;
+    		$arr['pekerjaan_petugas_ppat']		= $key->pekerjaan_petugas_ppat;
+    		$arr['alamat_petugas_ppat']			= $key->alamat_petugas_ppat;
+    		$arr['no_hp_petugas_ppat']			= $key->no_hp_petugas_ppat;
+			$arr['nama_ppat']					= $key->nama_ppat;
+        	$arr['no_sertifikat_tanah']			= $key->no_sertifikat_tanah;
+        	$arr['nop']							= $key->nop;
+        	$arr['desa_op']						= $key->desa_op;
+        	$arr['kec_op']						= $key->kec_op;
+        	$arr['alamat_op']					= $key->alamat_op;
+        	$arr['luas_tanah']					= $key->luas_tanah;
+        	$arr['njop_tanah']					= number_format($key->njop_tanah, 2, ',','.');
+        	$arr['luas_bangunan']				= $key->luas_bangunan;
+        	$arr['njop_bangunan']				= number_format($key->njop_bangunan, 2, ',','.');
+        	$arr['nama_wp_trans']				= $key->nama_wp_trans;
+        	$arr['alamat_wp_trans']				= $key->alamat_wp_trans;
+        	$arr['kode_billing']				= $key->kode_billing;
+        	$arr['status']						= $key->status;
+			array_push($arra, $arr);
+		}
+		echo json_encode($arra);
     }
 }
