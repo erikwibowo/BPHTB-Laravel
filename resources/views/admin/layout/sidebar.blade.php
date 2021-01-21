@@ -139,7 +139,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('admin.transaksi.didaftarkan') }}" class="nav-link  {{ Request::segment(3) == 'didaftarkan' ? 'active':'' }}">
+                <a href="{{ route('admin.billing.belumlunas') }}" class="nav-link  {{ Request::segment(3) == 'belum-lunas' ? 'active':'' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Belum Lunas</p>
                 </a>
@@ -147,7 +147,7 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('admin.transaksi.diperiksa') }}" class="nav-link  {{ Request::segment(3) == 'diperiksa' ? 'active':'' }}">
+                <a href="{{ route('admin.billing.lunas') }}" class="nav-link  {{ Request::segment(3) == 'lunas' ? 'active':'' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Lunas</p>
                 </a>
@@ -155,7 +155,7 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('admin.transaksi.diperiksa') }}" class="nav-link  {{ Request::segment(3) == 'diperiksa' ? 'active':'' }}">
+                <a href="{{ route('admin.billing.kadaluarsa') }}" class="nav-link  {{ Request::segment(3) == 'kadaluarsa' ? 'active':'' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kadaluarsa</p>
                 </a>
@@ -163,7 +163,7 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('admin.transaksi.diperiksa') }}" class="nav-link  {{ Request::segment(3) == 'diperiksa' ? 'active':'' }}">
+                <a href="{{ route('admin.billing.index') }}" class="nav-link  {{ Request::segment(2) == 'billing' && Request::segment(3) == '' ? 'active':'' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Semua</p>
                 </a>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BillingController;
 use App\Http\Controllers\PpatController;
 use App\Http\Controllers\RiwayatTransaksiController;
 use App\Http\Controllers\TransaksiController;
@@ -74,4 +75,10 @@ Route::group(['prefix' => 'admin',  'middleware' => 'adminauth'], function () {
 
     //RIWAYAT TRANSAKSI
     Route::post('riwayat-transaksi/data-by-transaksi', [RiwayatTransaksiController::class, 'data_by_transaksi'])->name('admin.riwayattransaksi.databytransaksi');
+
+    //BILLING
+    Route::get('billing', [BillingController::class, 'index'])->name('admin.billing.index');
+    Route::get('billing/lunas', [BillingController::class, 'index'])->name('admin.billing.lunas');
+    Route::get('billing/belum-lunas', [BillingController::class, 'index'])->name('admin.billing.belumlunas');
+    Route::get('billing/kadaluarsa', [BillingController::class, 'index'])->name('admin.billing.kadaluarsa');
 });
