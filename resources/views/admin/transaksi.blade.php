@@ -88,9 +88,20 @@
             let id = $(this).attr("data-id");
             let name = $(this).attr("data-name");
             $("#did").val(id);
-            $("#delete-data").html(name);
+            $("#delete-data").html(id);
             $('#modal-delete').modal('show');
             $('#modal-delete').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        });
+        $(document).on("click", '.btn-restore', function() {
+            let id = $(this).attr("data-id");
+            let name = $(this).attr("data-name");
+            $("#dir").val(id);
+            $("#restore-data").html(id);
+            $('#modal-restore').modal('show');
+            $('#modal-restore').modal({
                 backdrop: 'static',
                 keyboard: false
             });
@@ -98,11 +109,11 @@
         $(document).on("click", '.btn-riwayat', function() {
             let id = $(this).attr("data-id");
             $("#riwayat-data").html(id);
-            $('#modal-riwayat').modal('show');
-            $('#modal-riwayat').modal({
-                backdrop: 'static',
-                keyboard: false
-            });
+            get_riwayat(id);
+
+        });
+
+        function get_riwayat(id){
             $.ajax({
                 url: "{{ route('admin.riwayattransaksi.databytransaksi') }}",
                 type: "POST",
@@ -120,14 +131,23 @@
                             <div class="timeline-item">
                                 <span class="time"><i class="fas fa-clock"></i> ${data[i].dibuat}</span>
                                 <h3 class="timeline-header no-border"><a href="#">${data[i].oleh}</a> ${data[i].riwayat_transaksi}</h3>
+                                <div class="timeline-footer btn-group">
+                                    <a onclick="return confirm('Hahahahaah')" class="btn btn-primary btn-xs">Edit</a>
+                                    <a onclick="return confirm('Hahahahaah')" class="btn btn-danger btn-xs">Hapus</a>
+                                </div>
                             </div>
                         </div>
                         `;                        
                     }
                     $("#timeline").html(html);
+                    $('#modal-riwayat').modal('show');
+                    $('#modal-riwayat').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
                 },
             });
-        });
+        }
         // $("#tahuns").on("change", function(){
         //     var tahun = $(this).val();
         //     window.location = '{{ URL::current() }}'+'?tahun='+tahun;
@@ -224,15 +244,43 @@
             </button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('admin.admin.delete') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.transaksi.delete') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                @method('DELETE')
+                @method('PUT')
                 <p class="modal-text">Apakah anda yakin akan menghapus? <b id="delete-data"></b></p>
                 <input type="hidden" name="id" id="did">
+                <input type="hidden" name="segment" value="{{ Request::segment(3) }}">
         </div>
         <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
             <button type="submit" class="btn btn-danger">Hapus</button>
+        </div>
+        </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="modal-restore">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Restore Data</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form action="{{ route('admin.transaksi.restore') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <p class="modal-text">Apakah anda yakin akan merestore? <b id="restore-data"></b></p>
+                <input type="hidden" name="id" id="dir">
+                <input type="hidden" name="segment" value="{{ Request::segment(3) }}">
+        </div>
+        <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+            <button type="submit" class="btn btn-danger">Restore</button>
         </div>
         </form>
         </div>

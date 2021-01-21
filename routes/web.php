@@ -58,14 +58,18 @@ Route::group(['prefix' => 'admin',  'middleware' => 'adminauth'], function () {
 
     //TRANSAKSI
     Route::get('transaksi', [TransaksiController::class, 'index'])->name('admin.transaksi.index');
-    Route::get('transaksi/where', [TransaksiController::class, 'where'])->name('admin.transaksi.where');
-    Route::get('transaksi/didaftarkan', [TransaksiController::class, 'where'])->name('admin.transaksi.didaftarkan');
-    Route::get('transaksi/diperiksa', [TransaksiController::class, 'where'])->name('admin.transaksi.diperiksa');
-    Route::get('transaksi/ditolak', [TransaksiController::class, 'where'])->name('admin.transaksi.ditolak');
-    Route::get('transaksi/diverifikasi', [TransaksiController::class, 'where'])->name('admin.transaksi.diverifikasi');
-    Route::get('transaksi/selesai', [TransaksiController::class, 'where'])->name('admin.transaksi.selesai');
-    Route::get('transaksi/kadaluarsa', [TransaksiController::class, 'where'])->name('admin.transaksi.kadaluarsa');
-    Route::get('transaksi/dihapus', [TransaksiController::class, 'dihapus'])->name('admin.transaksi.dihapus');
+    Route::get('transaksi/didaftarkan', [TransaksiController::class, 'index'])->name('admin.transaksi.didaftarkan');
+    Route::get('transaksi/difinalisasi', [TransaksiController::class, 'index'])->name('admin.transaksi.difinalisasi');
+    Route::get('transaksi/diperiksa', [TransaksiController::class, 'index'])->name('admin.transaksi.diperiksa');
+    Route::get('transaksi/ditolak', [TransaksiController::class, 'index'])->name('admin.transaksi.ditolak');
+    Route::get('transaksi/diverifikasi', [TransaksiController::class, 'index'])->name('admin.transaksi.diverifikasi');
+    Route::get('transaksi/selesai', [TransaksiController::class, 'index'])->name('admin.transaksi.selesai');
+    Route::get('transaksi/kadaluarsa', [TransaksiController::class, 'index'])->name('admin.transaksi.kadaluarsa');
+    Route::get('transaksi/dihapus', [TransaksiController::class, 'index'])->name('admin.transaksi.dihapus');
+
+    
+    Route::put('transaksi/delete', [TransaksiController::class, 'delete'])->name('admin.transaksi.delete');
+    Route::put('transaksi/restore', [TransaksiController::class, 'restore'])->name('admin.transaksi.restore');
 
     //RIWAYAT TRANSAKSI
     Route::post('riwayat-transaksi/data-by-transaksi', [RiwayatTransaksiController::class, 'data_by_transaksi'])->name('admin.riwayattransaksi.databytransaksi');
