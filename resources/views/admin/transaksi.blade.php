@@ -22,7 +22,7 @@
                                 <th>Jenis Transaksi</th>
                                 <th>NOP</th>
                                 <th>Alamat OP</th>
-                                <th>Nilai Transaksi</th>
+                                <th>Transaksi</th>
                                 <th>Tanggal</th>
                                 <th>Tahun</th>
                                 <th>Status</th>
@@ -221,6 +221,10 @@
                     data : {id:id, _token: "{{ csrf_token() }}"},
                     success: function(data){
                         get_riwayat($('#diw').val());
+                        $("#keteranganu").val('').trigger('change');
+                        get_riwayat($('#diw').val());
+                        $("#formriwayat-simpan").show(200);
+                        $("#formriwayat-update").hide(200);
                     }
                 });
             }

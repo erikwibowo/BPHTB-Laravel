@@ -89,6 +89,7 @@ class TransaksiController extends Controller
                     return $row->jenistransaksi->jenis_transaksi;
                 })
                 ->editColumn('nilai_transaksi', '{{ number_format($nilai_transaksi, 2, ",",".") }}')
+                ->editColumn('dibuat', '{{ date("d-m-y", strtotime("$dibuat")) }}')
                 ->rawColumns(['action', 'status', 'nama_wp', 'jenis_transaksi'])
                 ->make(true);
         }
