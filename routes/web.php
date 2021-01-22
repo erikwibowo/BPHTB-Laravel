@@ -72,6 +72,7 @@ Route::group(['prefix' => 'admin',  'middleware' => 'adminauth'], function () {
     
     Route::put('transaksi/delete', [TransaksiController::class, 'delete'])->name('admin.transaksi.delete');
     Route::put('transaksi/restore', [TransaksiController::class, 'restore'])->name('admin.transaksi.restore');
+    Route::put('transaksi/ubah-status', [TransaksiController::class, 'ubah_status'])->name('admin.transaksi.ubahstatus');
     Route::post('transaksi/data-rinci-transaksi', [TransaksiController::class, 'data_rinci_transaksi'])->name('admin.transaksi.datarincitransaksi');
 
     //RIWAYAT TRANSAKSI

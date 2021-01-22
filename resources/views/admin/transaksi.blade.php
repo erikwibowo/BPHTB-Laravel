@@ -210,6 +210,17 @@
 
         });
 
+        $(document).on("click", '.btn-ubah-status', function() {
+            $('#dis').val($(this).attr("data-id"));
+            $('#status-data').val($(this).attr("data-id"));
+            $('#status').val($(this).attr("data-status"));
+            $('#modal-status').modal('show');
+            $('#modal-status').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        });
+
         $(document).on("click", '.btn-hapus-riwayat', function(event){
             var id = $(this).attr('data-id');
             var r = confirm("Apakah anda yakin akan menghapus riwayat transaksi?");
@@ -733,6 +744,42 @@
                     </div>
                 </form>
             </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="modal-status">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Status Transaksi <b id="status-data"></b></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('admin.transaksi.ubahstatus') }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="form-group">
+                        <select class="form-control" name="status" id="status" required>
+                            <option value="">-- Pilih Status --</option>
+                            <option value="1">Didaftarkan</option>
+                            <option value="2">Diperiksa</option>
+                            <option value="3">Diverifikasi</option>
+                            <option value="4">Ditolak</option>
+                            <option value="5">Selesai</option>
+                            <option value="6">Kadaluarsa</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="id" id="dis">
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+            </form>
         </div>
         <!-- /.modal-content -->
     </div>
