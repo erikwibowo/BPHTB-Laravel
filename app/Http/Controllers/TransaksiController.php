@@ -64,7 +64,7 @@ class TransaksiController extends Controller
                     }elseif ($row->status == 2) {
                         $sts = '<button data-id="' . $row->id_transaksi . '" data-status="' . $row->status . '" data-desc="diverifikasi" data-toggle="tooltip" title="Klik untuk mengubah status" class="btn btn-xs btn-ubah-status btn-primary">Diperiksa</button>';
                     } elseif ($row->status == 3) {
-                        $sts = '<button data-id="' . $row->id_transaksi . '" data-status="' . $row->status . '" data-desc="diverifikasi" data-toggle="tooltip" title="Klik untuk mengubah status" class="btn btn-xs btn-ubah-status btn-warning">Menunggu Pembayaran</button>';
+                        $sts = '<button data-id="' . $row->id_transaksi . '" data-status="' . $row->status . '" data-desc="diverifikasi" data-toggle="tooltip" title="Klik untuk mengubah status" class="btn btn-xs btn-ubah-status btn-warning">Diverifikasi</button>';
                     } elseif ($row->status == 4) {
                         $sts = '<button data-id="' . $row->id_transaksi . '" data-status="'.$row->status.'" data-desc="ditolak" data-toggle="tooltip" title="Klik untuk mengubah status" class="btn btn-xs btn-ubah-status btn-danger">Ditolak</button>';
                     }elseif ($row->status == 5) {
@@ -73,8 +73,10 @@ class TransaksiController extends Controller
                         $sts = '<button data-id="'.$row->id_transaksi.'" data-status="'.$row->status.'" data-desc="kadaluarsa" data-toggle="tooltip" title="Klik untuk mengubah status" class="btn btn-xs btn-ubah-status btn-danger">Kadaluarsa</button>';
                     }
 
-                    if ($row->finalisasi == 1) {
-                        $sts .= '&nbsp;<button data-toggle="tooltip" title="Klik untuk membatalkan finalisasi status" class="btn btn-xs btn-info">Finalisasi</button>';
+                    if ($row->status == 2 && $row->finalisasi == 1) {
+                        $sts .= '&nbsp;<button data-id="'.$row->id_transaksi.'" data-finalisasi="'.$row->finalisasi.'" data-toggle="tooltip" title="Klik untuk membatalkan finalisasi status" class="btn btn-xs btn-info btn-ubah-finalisasi">Final</button>';
+                    }elseif($row->status == 2 && $row->finalisasi == 0){
+                        $sts .= '&nbsp;<button data-id="'.$row->id_transaksi.'" data-finalisasi="'.$row->finalisasi.'" data-toggle="tooltip" title="Klik untuk finalisasi transaksi" class="btn btn-xs btn-warning btn-ubah-finalisasi">Belum Final</button>';
                     }
 
                     if ($row->dihapus == 1) {
@@ -122,6 +124,7 @@ class TransaksiController extends Controller
     {
         $id = $request->input('id');
         $status = $request->input('status');
+        $alasan = "";
         if ($status == 1) {
             $desc = "didaftarkan";
         } elseif ($status == 2) {
@@ -130,15 +133,33 @@ class TransaksiController extends Controller
             $desc = "diverifikasi";
         } elseif ($status == 4) {
             $desc = "ditolak";
+            $alasan = " karena ". $request->input('alasan');
         } elseif ($status == 5) {
             $desc = "selesai";
         } elseif ($status == 6) {
             $desc = "kadaluarsa";
         }
-        
-        RiwayatTransaksi::insert(['id_transaksi' => $id, 'riwayat_transaksi' => 'Transaksi telah '.$desc, 'id_admin' => session('id_admin'), 'dibuat' => now()]);
+
+        RiwayatTransaksi::insert(['id_transaksi' => $id, 'riwayat_transaksi' => 'Transaksi telah ' . $desc.$alasan, 'id_admin' => session('id_admin'), 'dibuat' => now()]);
         Transaksi::where(['id_transaksi' => $id])->update(['status' => $status]);
         session()->flash('notif', 'Status data berhasil disimpan');
+        session()->flash('type', 'success');
+        return redirect('admin/transaksi/' . $request->input('segment'));
+    }
+
+    public function ubah_finalisasi(Request $request)
+    {
+        $id = $request->input('id');
+        $finalisasi = $request->input('finalisasi');
+        if ($finalisasi == 1) {
+            $desc = "difinalisasi";
+        } else {
+            $desc = "batal difinalisasi";
+        }
+
+        RiwayatTransaksi::insert(['id_transaksi' => $id, 'riwayat_transaksi' => 'Transaksi telah ' . $desc, 'id_admin' => session('id_admin'), 'dibuat' => now()]);
+        Transaksi::where(['id_transaksi' => $id])->update(['finalisasi' => $finalisasi]);
+        session()->flash('notif', 'Data berhasil disimpan');
         session()->flash('type', 'success');
         return redirect('admin/transaksi/' . $request->input('segment'));
     }

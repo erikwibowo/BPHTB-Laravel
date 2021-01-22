@@ -214,8 +214,21 @@
             $('#dis').val($(this).attr("data-id"));
             $('#status-data').val($(this).attr("data-id"));
             $('#status').val($(this).attr("data-status"));
+            $("#txt-alasan").hide();
             $('#modal-status').modal('show');
             $('#modal-status').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+            getKeterangan();
+        });
+
+        $(document).on("click", '.btn-ubah-finalisasi', function() {
+            $('#dif').val($(this).attr("data-id"));
+            $('#finalisasi-data').val($(this).attr("data-id"));
+            $('#finalisasi').val($(this).attr("data-finalisasi"));
+            $('#modal-finalisasi').modal('show');
+            $('#modal-finalisasi').modal({
                 backdrop: 'static',
                 keyboard: false
             });
@@ -246,12 +259,27 @@
             $("#formriwayat-update").hide(200);
         });
 
+        $("#status").on("change", function(){
+            let status = $(this).val();
+            if (status == 4) {
+                $("#txt-alasan").show(200);
+                $("#alasan").attr('required', 'true');
+            } else {
+                $("#txt-alasan").hide(200);
+                $("#alasan").removeAttr('required');
+            }
+        });
+
         $("#keterangan").on("change", function(){
             $("#riwayat").val($("#keterangan").val());
         });
 
         $("#keteranganu").on("change", function(){
             $("#riwayatu").val($("#keteranganu").val());
+        });
+
+        $("#keterangans").on("change", function(){
+            $("#alasan").val($("#keterangans").val());
         });
 
         function get_riwayat(id){
@@ -307,6 +335,7 @@
                     }
                     $("#keterangan").html(html);
                     $("#keteranganu").html(html);
+                    $("#keterangans").html(html);
                 },
             });
         }
@@ -773,7 +802,50 @@
                             <option value="6">Kadaluarsa</option>
                         </select>
                     </div>
+                    <div id="txt-alasan">
+                        <div class="form-group">
+                            <select class="form-control" id="keterangans" data-placeholder="Pilih keterangan" style="width: 100%;">
+                                <option value="">-- Pilih Keterangan --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" name="alasan" id="alasan" placeholder="Tuliskan mengapa transaksi ini ditolak..."></textarea>
+                        </div>
+                    </div>
                     <input type="hidden" name="id" id="dis">
+                    <input type="hidden" name="segment" value="{{ Request::segment(3) }}">
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="modal-finalisasi">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Finalisasi Transaksi <b id="finalisasi-data"></b></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('admin.transaksi.ubahfinalisasi') }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="form-group">
+                        <select class="form-control" name="finalisasi" id="finalisasi" required>
+                            <option value="0">Batal finalisasi</option>
+                            <option value="1">Finalisasi</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="id" id="dif">
+                    <input type="hidden" name="segment" value="{{ Request::segment(3) }}">
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
