@@ -77,7 +77,8 @@ Route::group(['prefix' => 'admin',  'middleware' => 'adminauth'], function () {
     //RIWAYAT TRANSAKSI
     Route::post('riwayat-transaksi/data-by-transaksi', [RiwayatTransaksiController::class, 'data_by_transaksi'])->name('admin.riwayattransaksi.databytransaksi');
     Route::post('riwayat-transaksi/create', [RiwayatTransaksiController::class, 'create'])->name('admin.riwayattransaksi.create');
-    Route::get('riwayat-transaksi/delete/{id}', [RiwayatTransaksiController::class, 'delete'])->name('admin.riwayattransaksi.delete');
+    Route::post('riwayat-transaksi/update', [RiwayatTransaksiController::class, 'update'])->name('admin.riwayattransaksi.update');
+    Route::post('riwayat-transaksi/delete', [RiwayatTransaksiController::class, 'delete'])->name('admin.riwayattransaksi.delete');
 
     //BILLING
     Route::get('billing', [BillingController::class, 'index'])->name('admin.billing.index');

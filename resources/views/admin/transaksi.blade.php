@@ -79,7 +79,7 @@
                     //console.log(data);
                     $('#modal-edit').modal({backdrop: 'static', keyboard: false});
                     $('#modal-edit').modal('show');
-                    $('.modal-title').text("Rincian Transaksi BPHTB : "+id+" ("+data[0].tgl_trans+")");
+                    $('#modal-edit-title').text("Rincian Transaksi BPHTB : "+id+" ("+data[0].tgl_trans+")");
                     $('#nik_wp').val(data[0].nik_wp);
                     $('#npwp').val(data[0].npwp);
                     $('#nama_wp').val(data[0].nama_wp);
@@ -153,22 +153,24 @@
             let id = $(this).attr("data-id");
             $("#diw").val(id);
             $("#riwayat-data").html(id);
+            $("#formriwayat-simpan").show(200);
+            $("#formriwayat-update").hide(200);
             get_riwayat(id);
             getKeterangan();
 
         });
 
-        $("#formriwayat").on("submit", function(e){
+        $("#formriwayat-simpan").on("submit", function(e){
             e.preventDefault();
             let id = $('#diw').val();
-            let keterangan = $('#keterangan').val();
+            let riwayat = $('#riwayat').val();
             $.ajax({
                 url: "{{ route('admin.riwayattransaksi.create') }}",
                 type: "POST",
                 dataType: "JSON",
                 data: {
                     id: id,
-                    riwayat_transaksi: keterangan,
+                    riwayat_transaksi: riwayat,
                     _token: "{{ csrf_token() }}"
                 },
                 success: function(data){
@@ -176,7 +178,66 @@
                     get_riwayat(id);
                 }
             });
+        });
+
+        $("#formriwayat-update").on("submit", function(e){
+            e.preventDefault();
+            let id = $('#diwu').val();
+            let riwayat = $('#riwayatu').val();
+            $.ajax({
+                url: "{{ route('admin.riwayattransaksi.update') }}",
+                type: "POST",
+                dataType: "JSON",
+                data: {
+                    id: id,
+                    riwayat_transaksi: riwayat,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(data){
+                    $("#keteranganu").val('').trigger('change');
+                    get_riwayat($('#diw').val());
+                    $("#formriwayat-simpan").show(200);
+                    $("#formriwayat-update").hide(200);
+                }
             });
+        });
+
+        $(document).on("click", '.btn-edit-riwayat', function() {
+            $('#diwu').val($(this).attr("data-id"));
+            $('#riwayatu').val($(this).attr("data-data"));
+            $("#formriwayat-simpan").hide(200);
+            $("#formriwayat-update").show(200);
+
+        });
+
+        $(document).on("click", '.btn-hapus-riwayat', function(event){
+            var id = $(this).attr('data-id');
+            var r = confirm("Apakah anda yakin akan menghapus riwayat transaksi?");
+            if (r) {
+                $.ajax({
+                    type : "POST",
+                    url  : "{{ route('admin.riwayattransaksi.delete') }}",
+                    dataType : "JSON",
+                    data : {id:id, _token: "{{ csrf_token() }}"},
+                    success: function(data){
+                        get_riwayat($('#diw').val());
+                    }
+                });
+            }
+        });
+
+        $("#btn-batal-riwayat").on("click", function(){
+            $("#formriwayat-simpan").show(200);
+            $("#formriwayat-update").hide(200);
+        });
+
+        $("#keterangan").on("change", function(){
+            $("#riwayat").val($("#keterangan").val());
+        });
+
+        $("#keteranganu").on("change", function(){
+            $("#riwayatu").val($("#keteranganu").val());
+        });
 
         function get_riwayat(id){
             $.ajax({
@@ -197,8 +258,8 @@
                                 <span class="time"><i class="fas fa-clock"></i> ${data[i].dibuat}</span>
                                 <h3 class="timeline-header no-border"><a href="#">${data[i].oleh}</a> ${data[i].riwayat_transaksi}</h3>
                                 <div class="timeline-footer btn-group">
-                                    <a onclick="return confirm('Hahahahaah')" class="btn btn-primary btn-xs">Edit</a>
-                                    <a onclick="return confirm('Hahahahaah')" class="btn btn-danger btn-xs">Hapus</a>
+                                    <button data-id="${data[i].id_riwayat_transaksi}" data-data="${data[i].riwayat_transaksi}" class="btn btn-primary btn-xs btn-edit-riwayat">Edit</button>
+                                    <button data-id="${data[i].id_riwayat_transaksi}" class="btn btn-danger btn-xs btn-hapus-riwayat">Hapus</button>
                                 </div>
                             </div>
                         </div>
@@ -223,13 +284,14 @@
                     _token: "{{ csrf_token() }}"
                 },
                 success: function(data) {
-                    let html = ``;
+                    let html = `<option value="">-- Pilih Keterangan --</option>`;
                     for (let i = 0; i < data.length; i++) {
                         html += `
                         <option value="${data[i].keterangan}">${data[i].keterangan}</option>
                         `;                        
                     }
                     $("#keterangan").html(html);
+                    $("#keteranganu").html(html);
                 },
             });
         }
@@ -244,7 +306,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"></h4>
+                <h4 class="modal-title" id="modal-edit-title"></h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -621,36 +683,52 @@
     <!-- /.modal-dialog -->
 </div>
 <div class="modal fade" id="modal-riwayat">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title">Riwayat Transaksi <b id="riwayat-data"</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="timeline" id="timeline">
-                <!-- timeline item -->
-                
-                <!-- END timeline item -->
+            <div class="modal-header">
+                <h4 class="modal-title">Riwayat Transaksi <b id="riwayat-data"></b></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <form id="formriwayat">
-                @csrf
-                <div class="form-group">
-                    <label>Pilih Keterangan</label>
-                    <select class="select2" multiple="multiple" id="keterangan" required data-placeholder="Pilih keterangan" style="width: 100%;">
-                    </select>
+            <div class="modal-body">
+                <div class="timeline" id="timeline">
+                    <!-- timeline item -->
+                    
+                    <!-- END timeline item -->
                 </div>
-                <input type="hidden" name="id" id="diw">
-                <div class="form-group">
-                    <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
-                </div>
-        </div>
-        <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
-        </div>
-        </form>
+                <form id="formriwayat-simpan">
+                    @csrf
+                    <div class="form-group">
+                        <select class="form-control" id="keterangan" data-placeholder="Pilih keterangan" style="width: 100%;">
+                            <option value="">-- Pilih Keterangan --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" required id="riwayat" placeholder="atau ketik di sini..."></textarea>
+                    </div>
+                    <input type="hidden" name="id" id="diw">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
+                    </div>
+                </form>
+                <form id="formriwayat-update">
+                    @csrf
+                    <div class="form-group">
+                        <select class="form-control" id="keteranganu" data-placeholder="Pilih keterangan" style="width: 100%;">
+                            <option value="">-- Pilih Keterangan --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" required id="riwayatu" placeholder="atau ketik di sini..."></textarea>
+                    </div>
+                    <input type="hidden" name="id" id="diwu">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
+                        <button type="button" class="btn btn-sm btn-danger" id="btn-batal-riwayat">Batal</button>
+                    </div>
+                </form>
+            </div>
         </div>
         <!-- /.modal-content -->
     </div>
