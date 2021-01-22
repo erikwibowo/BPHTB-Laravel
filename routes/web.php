@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BillingController;
+use App\Http\Controllers\KeteranganController;
 use App\Http\Controllers\PpatController;
 use App\Http\Controllers\RiwayatTransaksiController;
 use App\Http\Controllers\TransaksiController;
@@ -75,10 +76,15 @@ Route::group(['prefix' => 'admin',  'middleware' => 'adminauth'], function () {
 
     //RIWAYAT TRANSAKSI
     Route::post('riwayat-transaksi/data-by-transaksi', [RiwayatTransaksiController::class, 'data_by_transaksi'])->name('admin.riwayattransaksi.databytransaksi');
+    Route::post('riwayat-transaksi/create', [RiwayatTransaksiController::class, 'create'])->name('admin.riwayattransaksi.create');
+    Route::get('riwayat-transaksi/delete/{id}', [RiwayatTransaksiController::class, 'delete'])->name('admin.riwayattransaksi.delete');
 
     //BILLING
     Route::get('billing', [BillingController::class, 'index'])->name('admin.billing.index');
     Route::get('billing/lunas', [BillingController::class, 'index'])->name('admin.billing.lunas');
     Route::get('billing/belum-lunas', [BillingController::class, 'index'])->name('admin.billing.belumlunas');
     Route::get('billing/kadaluarsa', [BillingController::class, 'index'])->name('admin.billing.kadaluarsa');
+
+    //KETERANGAN
+    Route::post('keterangan/data', [KeteranganController::class, 'data'])->name('admin.keterangan.data');
 });

@@ -8,6 +8,30 @@ use Illuminate\Support\Facades\DB;
 
 class RiwayatTransaksiController extends Controller
 {
+
+    public function create(Request $request){
+        RiwayatTransaksi::insert([
+            'id_transaksi'      => $request->input('id'),
+            'riwayat_transaksi' => implode(", ", $request->input('riwayat_transaksi')),
+            'ditampilkan'       => 1,
+            'id_admin'          => session('id_admin'),
+            'dibuat'            => now()
+        ]);
+        echo json_encode([
+            'code' => 1,
+            'message' => 'insert riwayat success'
+        ]);
+    }
+
+    public function delete(Request $request){
+        $id = $request->route('id');
+        RiwayatTransaksi::where(['id_riwayat_transaksi' => $id])->delete();
+        echo json_encode([
+            'code' => 1,
+            'message' => 'insert riwayat success'
+        ]);
+    }
+
     public function data_by_transaksi(Request $request)
     {
         $ar = [];

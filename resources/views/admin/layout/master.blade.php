@@ -24,6 +24,9 @@
   <link rel="stylesheet" href="{{ asset('template/admin/plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('template/admin/plugins/summernote/summernote-bs4.min.css') }}">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{ asset('template/admin/plugins/select2/css/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('template/admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
   <!-- SweetAlert2 -->
   <link rel="stylesheet" href="{{ asset('template/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
   <!-- jQuery -->
@@ -92,6 +95,16 @@
 <!-- DataTables  & Plugins -->
 <script src="{{ asset('template/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('template/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ asset('template/admin/plugins/select2/js/select2.full.min.js') }}"></script>
+<script>
+  $(function () {
+    $('.select2').select2();
+    $('.select2').select2({
+      theme: 'bootstrap4'
+    })
+  })
+</script>
 @if(session("notif"))
 <script>
     $(document).ready(function(){

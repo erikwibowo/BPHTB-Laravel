@@ -97,6 +97,7 @@
                     $('#nilai_transaksi').val(data[0].nilai_transaksi);
                     $('#njoptkp').val(data[0].njoptkp);
                     $('#njkp').val(data[0].njkp);
+                    $('#potongan').val(data[0].potongan);
                     $('#bphtb').val(data[0].bphtb);
                     if (data[0].dikuasakan == "1") {
                         $('#dikuasakan').val("Ya");
@@ -122,6 +123,7 @@
                     $('#njop_bangunan').val(data[0].njop_bangunan);
                     $('#nama_wp_trans').val(data[0].nama_wp_trans);
                     $('#alamat_wp_trans').val(data[0].alamat_wp_trans);
+                    $('#tahun').val(data[0].tahun);
                 },
             });
         });
@@ -149,10 +151,32 @@
         });
         $(document).on("click", '.btn-riwayat', function() {
             let id = $(this).attr("data-id");
+            $("#diw").val(id);
             $("#riwayat-data").html(id);
             get_riwayat(id);
+            getKeterangan();
 
         });
+
+        $("#formriwayat").on("submit", function(e){
+            e.preventDefault();
+            let id = $('#diw').val();
+            let keterangan = $('#keterangan').val();
+            $.ajax({
+                url: "{{ route('admin.riwayattransaksi.create') }}",
+                type: "POST",
+                dataType: "JSON",
+                data: {
+                    id: id,
+                    riwayat_transaksi: keterangan,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(data){
+                    $("#keterangan").val('').trigger('change');
+                    get_riwayat(id);
+                }
+            });
+            });
 
         function get_riwayat(id){
             $.ajax({
@@ -186,6 +210,26 @@
                         backdrop: 'static',
                         keyboard: false
                     });
+                },
+            });
+        }
+
+        function getKeterangan(){
+            $.ajax({
+                url: "{{ route('admin.keterangan.data') }}",
+                type: "POST",
+                dataType: "JSON",
+                data: {
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(data) {
+                    let html = ``;
+                    for (let i = 0; i < data.length; i++) {
+                        html += `
+                        <option value="${data[i].keterangan}">${data[i].keterangan}</option>
+                        `;                        
+                    }
+                    $("#keterangan").html(html);
                 },
             });
         }
@@ -418,6 +462,12 @@
                     </div>
                 </div>
                 <div class="input-group row mb-1">
+                    <label class="col-sm-3 col-form-label">POTONGAN</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="potongan" name="potongan" required readonly placeholder="POTONGAN" class="form-control">
+                    </div>
+                </div>
+                <div class="input-group row mb-1">
                     <label class="col-sm-3 col-form-label">BPHTB</label>
                     <div class="col-sm-9">
                         <input type="text" id="bphtb" name="bphtb" readonly required placeholder="BPHTB" class="form-control">
@@ -495,6 +545,12 @@
                     <label class="col-sm-3 col-form-label">ALAMAT WAJIB PAJAK</label>
                     <div class="col-sm-9">
                         <textarea id="alamat_wp_trans" required readonly placeholder="Alamat WP" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="input-group row mb-1">
+                    <label class="col-sm-3 col-form-label">TAHUN</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="tahun" required readonly placeholder="TAHUN" class="form-control">
                     </div>
                 </div>
             </div>
@@ -578,12 +634,18 @@
                 <!-- timeline item -->
                 
                 <!-- END timeline item -->
-              </div>
-            {{-- <form action="{{ route('admin.admin.delete') }}" method="POST" enctype="multipart/form-data">
+            </div>
+            <form id="formriwayat">
                 @csrf
-                @method('DELETE')
-                <p class="modal-text">Apakah anda yakin akan menghapus? <b id="delete-data"></b></p>
-                <input type="hidden" name="id" id="did"> --}}
+                <div class="form-group">
+                    <label>Pilih Keterangan</label>
+                    <select class="select2" multiple="multiple" id="keterangan" required data-placeholder="Pilih keterangan" style="width: 100%;">
+                    </select>
+                </div>
+                <input type="hidden" name="id" id="diw">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
+                </div>
         </div>
         <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>

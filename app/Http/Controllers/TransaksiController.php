@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Keterangan;
 use App\Models\RiwayatTransaksi;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
@@ -138,6 +139,7 @@ class TransaksiController extends Controller
         	$arr['nilai_transaksi']				= number_format($key->nilai_transaksi, 2, ',','.');
         	$arr['njoptkp']						= number_format($key->njoptkp, 2, ',','.');
         	$arr['njkp']						= number_format($key->njkp, 2, ',','.');
+        	$arr['potongan']					= number_format($key->potongan, 2, ',','.');
         	$arr['bphtb']						= number_format($key->bphtb, 2, ',','.');
         	$arr['dikuasakan']					= $key->dikuasakan;
         	$arr['nama_petugas_ppat']			= $key->nama_petugas_ppat;
@@ -159,6 +161,7 @@ class TransaksiController extends Controller
         	$arr['alamat_wp_trans']				= $key->alamat_wp_trans;
         	$arr['kode_billing']				= $key->kode_billing;
         	$arr['status']						= $key->status;
+        	$arr['tahun']						= $key->tahun;
 			array_push($arra, $arr);
 		}
 		echo json_encode($arra);
