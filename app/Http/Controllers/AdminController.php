@@ -13,7 +13,7 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Admin::orderBy('dibuat', 'desc');
+            $data = Admin::orderBy('login_at', 'desc');
             return DataTables::of($data)
                 ->addColumn('action', function ($row) {
                     $btn = '<div class="btn-group"><button type="button" data-id="' . $row->id_admin . '" class="btn btn-primary btn-sm btn-edit"><i class="fa fa-eye"></i></button><button type="button" data-id="' . $row->id_admin . '" data-name="' . $row->nama_admin . '" class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash"></i></button></div>';

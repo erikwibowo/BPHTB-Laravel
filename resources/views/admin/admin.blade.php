@@ -17,6 +17,7 @@
                                 <th>Nama</th>
                                 <th>Username</th>
                                 <th>Level</th>
+                                <th>Login</th>
                                 <th>Aktif</th>
                                 <th>Aksi</th>
                             </tr>
@@ -41,6 +42,7 @@
                 { data: 'nama_admin', name: 'nama_admin'},
                 { data: 'username', name: 'username'},
                 { data: 'level', name: 'level' },
+                { data: 'login_at', name: 'login_at' },
                 { data: 'aktif', name: 'aktif' },
                 { data: 'action', name: 'action', orderable: false, searchable: true },
             ]

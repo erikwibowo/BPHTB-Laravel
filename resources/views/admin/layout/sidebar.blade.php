@@ -29,31 +29,12 @@
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-header">MASTER DATA</li>
-          <li class="nav-item">
-            <a href="{{ route('admin.admin.index') }}" class="nav-link {{ Request::segment(2) == 'admin' ? 'active':'' }}">
-              <i class="fas fa-user nav-icon"></i>
-              <p>Admin</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('admin.ppat.index') }}" class="nav-link {{ Request::segment(2) == 'ppat' ? 'active':'' }}">
-              <i class="fas fa-users nav-icon"></i>
-              <p>PPAT</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'wp' ? 'active':'' }}">
-              <i class="fas fa-users nav-icon"></i>
-              <p>Wajib Pajak</p>
-            </a>
-          </li>
           <li class="nav-header">TRANSAKSI</li>
           <li class="nav-item  {{ Request::segment(2) == 'transaksi' ? 'menu-open':'' }}">
             <a href="#" class="nav-link  {{ Request::segment(2) == 'transaksi' ? 'active':'' }}">
               <i class="nav-icon fas fa-money-bill-wave"></i>
               <p>
-                DATA TRANSAKSI
+                Data Transaksi
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -129,11 +110,12 @@
                 </a>
               </li>
             </ul>
-          </li><li class="nav-item  {{ Request::segment(2) == 'billing' ? 'menu-open':'' }}">
+          </li>
+          <li class="nav-item  {{ Request::segment(2) == 'billing' ? 'menu-open':'' }}">
             <a href="#" class="nav-link  {{ Request::segment(2) == 'billing' ? 'active':'' }}">
               <i class="nav-icon fas fa-qrcode"></i>
               <p>
-                BILLING
+                Billing
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -170,6 +152,118 @@
               </li>
             </ul>
           </li>
+          <li class="nav-header">MASTER DATA</li>
+          <li class="nav-item">
+            <a href="{{ route('admin.admin.index') }}" class="nav-link {{ Request::segment(2) == 'admin' ? 'active':'' }}">
+              <i class="fas fa-user nav-icon"></i>
+              <p>Admin</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.ppat.index') }}" class="nav-link {{ Request::segment(2) == 'ppat' ? 'active':'' }}">
+              <i class="fas fa-users nav-icon"></i>
+              <p>PPAT</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'wp' ? 'active':'' }}">
+              <i class="fas fa-users nav-icon"></i>
+              <p>Wajib Pajak</p>
+            </a>
+          </li>
+          <li class="nav-header">OLAH DATA</li>
+          <li class="nav-item">
+            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'pemberitahuan' ? 'active':'' }}">
+              <i class="fas fa-bell nav-icon"></i>
+              <p>Pemberitahuan</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'keterangan' ? 'active':'' }}">
+              <i class="fas fa-list nav-icon"></i>
+              <p>Keterangan</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'keterangan' ? 'active':'' }}">
+              <i class="fas fa-tag nav-icon"></i>
+              <p>Jenis Transaksi</p>
+            </a>
+          </li>
+          <li class="nav-item  {{ Request::segment(2) == 'billing' ? 'menu-open':'' }}">
+            <a href="#" class="nav-link  {{ Request::segment(2) == 'billing' ? 'active':'' }}">
+              <i class="nav-icon fas fa-map"></i>
+              <p>
+                Daerah Administratif
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.billing.belumlunas') }}" class="nav-link  {{ Request::segment(3) == 'belum-lunas' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Provinsi</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.billing.lunas') }}" class="nav-link  {{ Request::segment(3) == 'lunas' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kab/Kota</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.billing.kadaluarsa') }}" class="nav-link  {{ Request::segment(3) == 'kadaluarsa' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kecamatan</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.billing.index') }}" class="nav-link  {{ Request::segment(2) == 'billing' && Request::segment(3) == '' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Desa</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.billing.index') }}" class="nav-link  {{ Request::segment(2) == 'billing' && Request::segment(3) == '' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kode Pos</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'pengaturan' ? 'active':'' }}">
+              <i class="fas fa-print nav-icon"></i>
+              <p>Laporan</p>
+            </a>
+          </li>
+          <li class="nav-header">PENGATURAN</li>
+          <li class="nav-item">
+            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'pengaturan' ? 'active':'' }}">
+              <i class="fas fa-cogs nav-icon"></i>
+              <p>Pengaturan</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'pengaturan' ? 'active':'' }}">
+              <i class="fas fa-cog nav-icon"></i>
+              <p>Tarif Tanah</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'pengaturan' ? 'active':'' }}">
+              <i class="fas fa-cog nav-icon"></i>
+              <p>Tarif Bangunan</p>
+            </a>
+          </li>
           <li class="nav-header"></li>
           <li class="nav-item">
             <a href="#" class="nav-link bg-danger" data-toggle="modal" data-target="#modal-logout">
@@ -177,6 +271,7 @@
               <p>KELUAR</p>
             </a>
           </li>
+          <li class="nav-header"></li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
