@@ -173,19 +173,19 @@
           </li>
           <li class="nav-header">OLAH DATA</li>
           <li class="nav-item">
-            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'pemberitahuan' ? 'active':'' }}">
+            <a href="{{ route('admin.pemberitahuan.index') }}" class="nav-link {{ Request::segment(2) == 'pemberitahuan' ? 'active':'' }}">
               <i class="fas fa-bell nav-icon"></i>
               <p>Pemberitahuan</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'keterangan' ? 'active':'' }}">
+            <a href="{{ route('admin.keterangan.index') }}" class="nav-link {{ Request::segment(2) == 'keterangan' ? 'active':'' }}">
               <i class="fas fa-list nav-icon"></i>
               <p>Keterangan</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'keterangan' ? 'active':'' }}">
+            <a href="{{ route('admin.jenistransaksi.index') }}" class="nav-link {{ Request::segment(2) == 'jenis-transaksi' ? 'active':'' }}">
               <i class="fas fa-tag nav-icon"></i>
               <p>Jenis Transaksi</p>
             </a>

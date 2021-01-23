@@ -1,0 +1,3 @@
+ALTER TABLE `tb_admin` ADD `login_at` TIMESTAMP NULL DEFAULT NULL AFTER `aktif`;
+ALTER TABLE `tb_jenis_transaksi` ADD `diubah` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `dibuat`;
+ALTER TABLE `tb_jenis_transaksi` ADD `potongan` DOUBLE(15,2) NOT NULL DEFAULT '0' AFTER `jenis_transaksi`;

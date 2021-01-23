@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BillingController;
+use App\Http\Controllers\JenisTransaksiController;
 use App\Http\Controllers\KeteranganController;
+use App\Http\Controllers\PemberitahuanController;
 use App\Http\Controllers\PpatController;
 use App\Http\Controllers\RiwayatTransaksiController;
 use App\Http\Controllers\TransaksiController;
@@ -90,4 +92,23 @@ Route::group(['prefix' => 'admin',  'middleware' => 'adminauth'], function () {
 
     //KETERANGAN
     Route::post('keterangan/data', [KeteranganController::class, 'data'])->name('admin.keterangan.data');
+    Route::get('keterangan', [KeteranganController::class, 'index'])->name('admin.keterangan.index');
+    Route::post('keterangan/create', [KeteranganController::class, 'create'])->name('admin.keterangan.create');
+    Route::put('keterangan/update', [KeteranganController::class, 'update'])->name('admin.keterangan.update');
+    Route::delete('keterangan/delete', [KeteranganController::class, 'delete'])->name('admin.keterangan.delete');
+    Route::post('keterangan/dataid', [KeteranganController::class, 'data_id'])->name('admin.keterangan.dataid');
+
+    //PEMBEITAHUAN
+    Route::post('pemberitahuan/data', [PemberitahuanController::class, 'data'])->name('admin.pemberitahuan.data');
+    Route::get('pemberitahuan', [PemberitahuanController::class, 'index'])->name('admin.pemberitahuan.index');
+    Route::post('pemberitahuan/create', [PemberitahuanController::class, 'create'])->name('admin.pemberitahuan.create');
+    Route::put('pemberitahuan/update', [PemberitahuanController::class, 'update'])->name('admin.pemberitahuan.update');
+    Route::delete('pemberitahuan/delete', [PemberitahuanController::class, 'delete'])->name('admin.pemberitahuan.delete');
+
+    //JENIS TRANSAKSI
+    Route::get('jenis-transaksi', [JenisTransaksiController::class, 'index'])->name('admin.jenistransaksi.index');
+    Route::post('jenis-transaksi/create', [JenisTransaksiController::class, 'create'])->name('admin.jenistransaksi.create');
+    Route::put('jenis-transaksi/update', [JenisTransaksiController::class, 'update'])->name('admin.jenistransaksi.update');
+    Route::delete('jenis-transaksi/delete', [JenisTransaksiController::class, 'delete'])->name('admin.jenistransaksi.delete');
+    Route::post('jenis-transaksi/data', [JenisTransaksiController::class, 'data'])->name('admin.jenistransaksi.data');
 });
