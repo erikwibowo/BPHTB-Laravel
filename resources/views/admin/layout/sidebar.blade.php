@@ -22,7 +22,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+          with font-awesome or any other icon font library -->
           <li class="nav-item">
             <a href="{{ route('admin.dashboard') }}" class="nav-link {{ Request::segment(2) == '' ? 'active':'' }}">
               <i class="fas fa-tachometer-alt nav-icon"></i>
@@ -190,8 +190,8 @@
               <p>Jenis Transaksi</p>
             </a>
           </li>
-          <li class="nav-item  {{ Request::segment(2) == 'billing' ? 'menu-open':'' }}">
-            <a href="#" class="nav-link  {{ Request::segment(2) == 'billing' ? 'active':'' }}">
+          <li class="nav-item  {{ Request::segment(2) == 'daerah-administratif' ? 'menu-open':'' }}">
+            <a href="#" class="nav-link  {{ Request::segment(2) == 'daerah-administratif' ? 'active':'' }}">
               <i class="nav-icon fas fa-map"></i>
               <p>
                 Daerah Administratif
@@ -200,7 +200,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('admin.billing.belumlunas') }}" class="nav-link  {{ Request::segment(3) == 'belum-lunas' ? 'active':'' }}">
+                <a href="{{ route('admin.provinsi.index') }}" class="nav-link  {{ Request::segment(3) == 'provinsi' ? 'active':'' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Provinsi</p>
                 </a>
@@ -208,7 +208,7 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('admin.billing.lunas') }}" class="nav-link  {{ Request::segment(3) == 'lunas' ? 'active':'' }}">
+                <a href="{{ route('admin.kabupaten.index') }}" class="nav-link  {{ Request::segment(3) == 'kabupaten' ? 'active':'' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kab/Kota</p>
                 </a>
@@ -216,7 +216,7 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('admin.billing.kadaluarsa') }}" class="nav-link  {{ Request::segment(3) == 'kadaluarsa' ? 'active':'' }}">
+                <a href="{{ route('admin.kecamatan.index') }}" class="nav-link  {{ Request::segment(3) == 'kecamatan' ? 'active':'' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kecamatan</p>
                 </a>
@@ -224,7 +224,7 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('admin.billing.index') }}" class="nav-link  {{ Request::segment(2) == 'billing' && Request::segment(3) == '' ? 'active':'' }}">
+                <a href="{{ route('admin.desa.index') }}" class="nav-link  {{ Request::segment(3) == 'desa' ? 'active':'' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Desa</p>
                 </a>
@@ -232,7 +232,7 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('admin.billing.index') }}" class="nav-link  {{ Request::segment(2) == 'billing' && Request::segment(3) == '' ? 'active':'' }}">
+                <a href="{{ route('admin.kodepos.index') }}" class="nav-link  {{ Request::segment(3) == 'kodepos' ? 'active':'' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kode Pos</p>
                 </a>
@@ -267,7 +267,7 @@
           <li class="nav-header"></li>
           <li class="nav-item">
             <a href="#" class="nav-link bg-danger" data-toggle="modal" data-target="#modal-logout">
-              <i class="fas fa-lock nav-icon"></i>
+              <i class="fas fa-sign-out-alt nav-icon"></i>
               <p>KELUAR</p>
             </a>
           </li>

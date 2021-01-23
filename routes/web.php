@@ -2,13 +2,19 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BillingController;
+use App\Http\Controllers\DesaController;
 use App\Http\Controllers\JenisTransaksiController;
+use App\Http\Controllers\KabupatenController;
+use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KeteranganController;
+use App\Http\Controllers\KodeposController;
 use App\Http\Controllers\PemberitahuanController;
 use App\Http\Controllers\PpatController;
+use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\RiwayatTransaksiController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\WpController;
+use App\Models\Desa;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -111,4 +117,11 @@ Route::group(['prefix' => 'admin',  'middleware' => 'adminauth'], function () {
     Route::put('jenis-transaksi/update', [JenisTransaksiController::class, 'update'])->name('admin.jenistransaksi.update');
     Route::delete('jenis-transaksi/delete', [JenisTransaksiController::class, 'delete'])->name('admin.jenistransaksi.delete');
     Route::post('jenis-transaksi/data', [JenisTransaksiController::class, 'data'])->name('admin.jenistransaksi.data');
+
+    //WILAYAH ADMINISTRATIF
+    Route::get('daerah-administratif/provinsi', [ProvinsiController::class, 'index'])->name('admin.provinsi.index');
+    Route::get('daerah-administratif/kabupaten', [KabupatenController::class, 'index'])->name('admin.kabupaten.index');
+    Route::get('daerah-administratif/kecamatan', [KecamatanController::class, 'index'])->name('admin.kecamatan.index');
+    Route::get('daerah-administratif/desa', [DesaController::class, 'index'])->name('admin.desa.index');
+    Route::get('daerah-administratif/kodepos', [KodeposController::class, 'index'])->name('admin.kodepos.index');
 });
