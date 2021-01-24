@@ -13,6 +13,8 @@ use App\Http\Controllers\PengaturanController;
 use App\Http\Controllers\PpatController;
 use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\RiwayatTransaksiController;
+use App\Http\Controllers\TarifBangunanController;
+use App\Http\Controllers\TarifTanahController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\WpController;
 use App\Models\Desa;
@@ -129,4 +131,18 @@ Route::group(['prefix' => 'admin',  'middleware' => 'adminauth'], function () {
     //PENGATURAN
     Route::get('pengaturan', [PengaturanController::class, 'index'])->name('admin.pengaturan.index');
     Route::put('pengaturan/update', [PengaturanController::class, 'update'])->name('admin.pengaturan.update');
+
+    //TARIF TANAH
+    Route::get('tarif-tanah', [TarifTanahController::class, 'index'])->name('admin.tariftanah.index');
+    Route::post('tarif-tanah/create', [TarifTanahController::class, 'create'])->name('admin.tariftanah.create');
+    Route::put('tarif-tanah/update', [TarifTanahController::class, 'update'])->name('admin.tariftanah.update');
+    Route::delete('tarif-tanah/delete', [TarifTanahController::class, 'delete'])->name('admin.tariftanah.delete');
+    Route::post('tarif-tanah/data', [TarifTanahController::class, 'data'])->name('admin.tariftanah.data');
+
+    //TARIF BANGUNAN
+    Route::get('tarif-bangunan', [TarifBangunanController::class, 'index'])->name('admin.tarifbangunan.index');
+    Route::post('tarif-bangunan/create', [TarifBangunanController::class, 'create'])->name('admin.tarifbangunan.create');
+    Route::put('tarif-bangunan/update', [TarifBangunanController::class, 'update'])->name('admin.tarifbangunan.update');
+    Route::delete('tarif-bangunan/delete', [TarifBangunanController::class, 'delete'])->name('admin.tarifbangunan.delete');
+    Route::post('tarif-bangunan/data', [TarifBangunanController::class, 'data'])->name('admin.tarifbangunan.data');
 });

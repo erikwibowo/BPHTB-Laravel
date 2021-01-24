@@ -253,13 +253,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'tarif-tanah' ? 'active':'' }}">
+            <a href="{{ route('admin.tariftanah.index') }}" class="nav-link {{ Request::segment(2) == 'tarif-tanah' ? 'active':'' }}">
               <i class="fas fa-cog nav-icon"></i>
               <p>Tarif Tanah</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'tarif-bangunan' ? 'active':'' }}">
+            <a href="{{ route('admin.tarifbangunan.index') }}" class="nav-link {{ Request::segment(2) == 'tarif-bangunan' ? 'active':'' }}">
               <i class="fas fa-cog nav-icon"></i>
               <p>Tarif Bangunan</p>
             </a>
