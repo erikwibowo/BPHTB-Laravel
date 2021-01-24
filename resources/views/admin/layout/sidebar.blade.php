@@ -240,26 +240,26 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'pengaturan' ? 'active':'' }}">
+            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'laporan' ? 'active':'' }}">
               <i class="fas fa-print nav-icon"></i>
               <p>Laporan</p>
             </a>
           </li>
           <li class="nav-header">PENGATURAN</li>
           <li class="nav-item">
-            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'pengaturan' ? 'active':'' }}">
+            <a href="{{ route('admin.pengaturan.index') }}" class="nav-link {{ Request::segment(2) == 'pengaturan' ? 'active':'' }}">
               <i class="fas fa-cogs nav-icon"></i>
               <p>Pengaturan</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'pengaturan' ? 'active':'' }}">
+            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'tarif-tanah' ? 'active':'' }}">
               <i class="fas fa-cog nav-icon"></i>
               <p>Tarif Tanah</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'pengaturan' ? 'active':'' }}">
+            <a href="{{ route('admin.wp.index') }}" class="nav-link {{ Request::segment(2) == 'tarif-bangunan' ? 'active':'' }}">
               <i class="fas fa-cog nav-icon"></i>
               <p>Tarif Bangunan</p>
             </a>

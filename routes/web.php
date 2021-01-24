@@ -9,6 +9,7 @@ use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KeteranganController;
 use App\Http\Controllers\KodeposController;
 use App\Http\Controllers\PemberitahuanController;
+use App\Http\Controllers\PengaturanController;
 use App\Http\Controllers\PpatController;
 use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\RiwayatTransaksiController;
@@ -124,4 +125,8 @@ Route::group(['prefix' => 'admin',  'middleware' => 'adminauth'], function () {
     Route::get('daerah-administratif/kecamatan', [KecamatanController::class, 'index'])->name('admin.kecamatan.index');
     Route::get('daerah-administratif/desa', [DesaController::class, 'index'])->name('admin.desa.index');
     Route::get('daerah-administratif/kodepos', [KodeposController::class, 'index'])->name('admin.kodepos.index');
+
+    //PENGATURAN
+    Route::get('pengaturan', [PengaturanController::class, 'index'])->name('admin.pengaturan.index');
+    Route::put('pengaturan/update', [PengaturanController::class, 'update'])->name('admin.pengaturan.update');
 });
