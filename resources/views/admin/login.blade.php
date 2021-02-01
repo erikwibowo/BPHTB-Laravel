@@ -14,21 +14,22 @@
   <link rel="stylesheet" href="{{ asset('template/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('template/admin/dist/css/adminlte.min.css') }}">
-    <!-- SweetAlert2 -->
-    <link rel="stylesheet" href="{{ asset('template/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+  <!-- SweetAlert2 -->
+   <link rel="stylesheet" href="{{ asset('template/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+  <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="{{ asset('template/admin/index2.html') }}" class="h1">{{ config('variable.webname') }}</a>
+      <a href="{{ asset('template/admin/index2.html') }}" class="h1">{{ config('variable.sort_webname') }}</a>
     </div>
     <div class="card-body">
       <form action="{{ route('admin.auth') }}" method="post">
         @csrf
         <div class="input-group mb-3">
-          <input type="text" class="form-control @error('username') is-invalid @enderror" placeholder="Email" name="username" value="{{ old('username') }}" autofocus required>
+          <input type="text" class="form-control @error('username') is-invalid @enderror" placeholder="Username" name="username" value="{{ old('username') }}" autofocus required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -49,9 +50,17 @@
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+        <div class="input-group mb-3">
+          <div class="g-recaptcha text-center" data-sitekey="{{ env('GOOGLE_RECHATPTCHA_SITEKEY') }}" data-callback="enableBtn"></div>
+        </div>
+        <script type="text/javascript">
+          function enableBtn(){
+              document.getElementById("btnlogin").disabled = false;
+          }
+        </script>
         <div class="row">
           <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" id="btnlogin" disabled class="btn btn-primary btn-block">Sign In</button>
           </div>
           <!-- /.col -->
         </div>
