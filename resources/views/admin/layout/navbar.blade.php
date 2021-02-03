@@ -111,6 +111,30 @@
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li> --}}
+      <li class="nav-item dropdown">
+          <a class="nav-link" id="btntheme">
+            <i id="icontheme" class="fas fa-sun"></i>
+          </a>
+        </li>
+        <script>
+          $(document).ready(function(){
+            $("#btntheme").on("click", function(){
+              if (localStorage.getItem('theme') == 'light' || localStorage.getItem('theme') == null) {
+                localStorage.setItem('theme', 'dark-mode')
+                document.querySelector('body').classList.add(localStorage.getItem('theme'));
+                document.querySelector('body').classList.remove('light');
+                $("#icontheme").attr("class","fas fa-moon");
+              }else{
+                localStorage.setItem('theme', 'light')
+                document.querySelector('body').classList.add(localStorage.getItem('theme'));
+                document.querySelector('body').classList.remove('dark-mode');
+                $("#icontheme").attr("class","fas fa-sun");
+              }
+            });
+            localStorage.getItem('theme') == "light" || localStorage.getItem('theme') == null ? $("#icontheme").attr("class","fas fa-sun"):$("#icontheme").attr("class","fas fa-moon");
+            document.querySelector('body').classList.add(localStorage.getItem('theme'));
+          });
+        </script>
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>

@@ -18,6 +18,7 @@ use App\Http\Controllers\TarifTanahController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\WpController;
 use App\Models\Desa;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,8 +33,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    $x['title'] = config('variable.webname');
+    return view('wp/home', $x);
+})->name('index');
+
+Route::get('/dark-mode', function (Request $request) {
+    session(['dark-mode' => $request->dark_mode]);
+    // return redirect('/');
+})->name('dark.mode');
 
 Route::get('admin/login', function () {
     return view('admin/login', ['title' => "Login | " . config('variable.webname')]);
@@ -146,3 +153,8 @@ Route::group(['prefix' => 'admin',  'middleware' => 'adminauth'], function () {
     Route::delete('tarif-bangunan/delete', [TarifBangunanController::class, 'delete'])->name('admin.tarifbangunan.delete');
     Route::post('tarif-bangunan/data', [TarifBangunanController::class, 'data'])->name('admin.tarifbangunan.data');
 });
+
+//WP
+Route::get('/login', function () {
+    return view('wp/login', ['title' => "Login WP - " . config('variable.webname')]);
+})->name('wp.login');
