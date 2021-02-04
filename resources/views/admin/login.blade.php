@@ -57,6 +57,7 @@
           function enableBtn(){
               document.getElementById("btnlogin").disabled = false;
           }
+          document.querySelector('body').classList.add(localStorage.getItem('theme'));
         </script>
         <div class="row">
           <div class="col-12">

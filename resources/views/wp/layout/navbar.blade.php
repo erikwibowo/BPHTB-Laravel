@@ -56,6 +56,8 @@
           </a>
         </li>
         <script>
+          localStorage.getItem('theme') == "light" || localStorage.getItem('theme') == null ? $("#icontheme").attr("class","fas fa-sun"):$("#icontheme").attr("class","fas fa-moon");
+          document.querySelector('body').classList.add(localStorage.getItem('theme'));
           $(document).ready(function(){
             $("#btntheme").on("click", function(){
               if (localStorage.getItem('theme') == 'light' || localStorage.getItem('theme') == null) {
@@ -70,8 +72,6 @@
                 $("#icontheme").attr("class","fas fa-sun");
               }
             });
-            localStorage.getItem('theme') == "light" || localStorage.getItem('theme') == null ? $("#icontheme").attr("class","fas fa-sun"):$("#icontheme").attr("class","fas fa-moon");
-            document.querySelector('body').classList.add(localStorage.getItem('theme'));
           });
         </script>
         <!-- Notifications Dropdown Menu -->

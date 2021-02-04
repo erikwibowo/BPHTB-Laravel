@@ -117,6 +117,8 @@
           </a>
         </li>
         <script>
+          localStorage.getItem('theme') == "light" || localStorage.getItem('theme') == null ? $("#icontheme").attr("class","fas fa-sun"):$("#icontheme").attr("class","fas fa-moon");
+          document.querySelector('body').classList.add(localStorage.getItem('theme'));
           $(document).ready(function(){
             $("#btntheme").on("click", function(){
               if (localStorage.getItem('theme') == 'light' || localStorage.getItem('theme') == null) {
@@ -131,19 +133,7 @@
                 $("#icontheme").attr("class","fas fa-sun");
               }
             });
-            localStorage.getItem('theme') == "light" || localStorage.getItem('theme') == null ? $("#icontheme").attr("class","fas fa-sun"):$("#icontheme").attr("class","fas fa-moon");
-            document.querySelector('body').classList.add(localStorage.getItem('theme'));
           });
         </script>
-      <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
-      </li>
     </ul>
   </nav>
