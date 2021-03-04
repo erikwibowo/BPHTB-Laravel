@@ -23,7 +23,7 @@ class JenisTransaksiController extends Controller
                 ->make(true);
         }
         $x['title'] = "Data Jenis Transaksi";
-        return view('admin/jenistransaksi', $x);
+        return view('admin.jenistransaksi', $x);
     }
 
     public function update(Request $request)

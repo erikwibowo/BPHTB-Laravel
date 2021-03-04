@@ -14,7 +14,7 @@
                 <!-- /.card-header -->
                 <div class="card-body">
                     <div class="table-responsive">
-                    <table class="table table-bordered table-hover table-striped datatable yajra-datatable">
+                    <table class="table table-bordered table-hover table-striped datatable yajra-datatable" style="width: 100%">
                         <thead>
                             <tr>
                                 <th>ID Transaksi</th>
@@ -62,11 +62,7 @@
     $(document).ready(function() {
         $(document).on("click", '.btn-edit', function() {
             let id = $(this).attr("data-id");
-            $('#modal-edit').modal('show');
-            $('#modal-edit').modal({
-                backdrop: 'static',
-                keyboard: false
-            });
+            $('#modal-loading').modal({backdrop: 'static', keyboard: false, show: true});
             $.ajax({
                 url: "{{ route('admin.transaksi.datarincitransaksi') }}",
                 type: "POST",
@@ -77,8 +73,6 @@
                 },
                 success: function(data){
                     //console.log(data);
-                    $('#modal-edit').modal({backdrop: 'static', keyboard: false});
-                    $('#modal-edit').modal('show');
                     $('#modal-edit-title').text("Rincian Transaksi BPHTB : "+id+" ("+data[0].tgl_trans+")");
                     $('#nik_wp').val(data[0].nik_wp);
                     $('#npwp').val(data[0].npwp);
@@ -124,6 +118,8 @@
                     $('#nama_wp_trans').val(data[0].nama_wp_trans);
                     $('#alamat_wp_trans').val(data[0].alamat_wp_trans);
                     $('#tahun').val(data[0].tahun);
+                    $('#modal-loading').modal('hide');
+                    $('#modal-edit').modal({backdrop: 'static', keyboard: false, show: true});
                 },
             });
         });
@@ -132,22 +128,14 @@
             let name = $(this).attr("data-name");
             $("#did").val(id);
             $("#delete-data").html(id);
-            $('#modal-delete').modal('show');
-            $('#modal-delete').modal({
-                backdrop: 'static',
-                keyboard: false
-            });
+            $('#modal-delete').modal({backdrop: 'static', keyboard: false, show: true});
         });
         $(document).on("click", '.btn-restore', function() {
             let id = $(this).attr("data-id");
             let name = $(this).attr("data-name");
             $("#dir").val(id);
             $("#restore-data").html(id);
-            $('#modal-restore').modal('show');
-            $('#modal-restore').modal({
-                backdrop: 'static',
-                keyboard: false
-            });
+            $('#modal-restore').modal({backdrop: 'static', keyboard: false, show: true});
         });
         $(document).on("click", '.btn-riwayat', function() {
             let id = $(this).attr("data-id");
@@ -215,11 +203,7 @@
             $('#status-data').val($(this).attr("data-id"));
             $('#status').val($(this).attr("data-status"));
             $("#txt-alasan").hide();
-            $('#modal-status').modal('show');
-            $('#modal-status').modal({
-                backdrop: 'static',
-                keyboard: false
-            });
+            $('#modal-status').modal({backdrop: 'static', keyboard: false, show: true});
             getKeterangan();
         });
 
@@ -227,16 +211,13 @@
             $('#dif').val($(this).attr("data-id"));
             $('#finalisasi-data').val($(this).attr("data-id"));
             $('#finalisasi').val($(this).attr("data-finalisasi"));
-            $('#modal-finalisasi').modal('show');
-            $('#modal-finalisasi').modal({
-                backdrop: 'static',
-                keyboard: false
-            });
+            $('#modal-finalisasi').modal({backdrop: 'static', keyboard: false, show: true});
         });
 
         $(document).on("click", '.btn-hapus-riwayat', function(event){
             var id = $(this).attr('data-id');
             var r = confirm("Apakah anda yakin akan menghapus riwayat transaksi?");
+            $('#modal-loading').modal({backdrop: 'static', keyboard: false, show: true});
             if (r) {
                 $.ajax({
                     type : "POST",
@@ -249,6 +230,7 @@
                         get_riwayat($('#diw').val());
                         $("#formriwayat-simpan").show(200);
                         $("#formriwayat-update").hide(200);
+                        $('#modal-loading').modal('hide');
                     }
                 });
             }
@@ -283,6 +265,7 @@
         });
 
         function get_riwayat(id){
+            $('#modal-loading').modal({backdrop: 'static', keyboard: false, show: true});
             $.ajax({
                 url: "{{ route('admin.riwayattransaksi.databytransaksi') }}",
                 type: "POST",
@@ -309,11 +292,8 @@
                         `;                        
                     }
                     $("#timeline").html(html);
-                    $('#modal-riwayat').modal('show');
-                    $('#modal-riwayat').modal({
-                        backdrop: 'static',
-                        keyboard: false
-                    });
+                    $('#modal-loading').modal('hide');
+                    $('#modal-riwayat').modal({backdrop: 'static', keyboard: false, show: true});
                 },
             });
         }

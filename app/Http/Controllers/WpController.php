@@ -31,7 +31,7 @@ class WpController extends Controller
                 ->make(true);
         }
         $x['title'] = "Data Wajib Pajak";
-        return view('admin/wp', $x);
+        return view('admin.wp', $x);
     }
 
     public function create(Request $request)

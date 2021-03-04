@@ -16,6 +16,6 @@ class KodeposController extends Controller
                 ->make(true);
         }
         $x['title'] = "Data Kode Pos";
-        return view('admin/kodepos', $x);
+        return view('admin.kodepos', $x);
     }
 }

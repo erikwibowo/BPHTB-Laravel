@@ -32,7 +32,7 @@ class TarifTanahController extends Controller
                 ->make(true);
         }
         $x['title'] = "Data Tarif Tanah";
-        return view('admin/tariftanah', $x);
+        return view('admin.tariftanah', $x);
     }
 
     public function update(Request $request)

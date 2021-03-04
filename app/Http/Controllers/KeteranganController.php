@@ -22,7 +22,7 @@ class KeteranganController extends Controller
                 ->make(true);
         }
         $x['title'] = "Data Keterangan";
-        return view('admin/keterangan', $x);
+        return view('admin.keterangan', $x);
     }
 
     public function update(Request $request)

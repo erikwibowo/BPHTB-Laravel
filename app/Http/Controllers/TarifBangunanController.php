@@ -23,7 +23,7 @@ class TarifBangunanController extends Controller
                 ->make(true);
         }
         $x['title'] = "Data Tarif Bangunan";
-        return view('admin/tarifbangunan', $x);
+        return view('admin.tarifbangunan', $x);
     }
 
     public function update(Request $request)

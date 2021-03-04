@@ -26,6 +26,6 @@ class DesaController extends Controller
                 ->make(true);
         }
         $x['title'] = "Data Desa";
-        return view('admin/desa', $x);
+        return view('admin.desa', $x);
     }
 }

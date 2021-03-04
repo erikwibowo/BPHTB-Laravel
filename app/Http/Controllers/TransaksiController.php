@@ -97,7 +97,7 @@ class TransaksiController extends Controller
         }
         $x['title'] = "Data Transaksi ".Str::ucfirst($request->segment(3));
         $x['url']   = $url;
-        return view('admin/transaksi', $x);
+        return view('admin.transaksi', $x);
     }
 
     public function delete(Request $request)

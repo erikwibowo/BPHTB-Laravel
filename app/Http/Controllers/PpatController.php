@@ -31,7 +31,7 @@ class PpatController extends Controller
                 ->make(true);
         }
         $x['title'] = "Data PPAT";
-        return view('admin/ppat', $x);
+        return view('admin.ppat', $x);
     }
 
     public function create(Request $request)

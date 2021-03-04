@@ -16,6 +16,6 @@ class ProvinsiController extends Controller
                 ->make(true);
         }
         $x['title'] = "Data Provinsi";
-        return view('admin/provinsi', $x);
+        return view('admin.provinsi', $x);
     }
 }

@@ -22,7 +22,7 @@ class PemberitahuanController extends Controller
                 ->make(true);
         }
         $x['title'] = "Data Pemberitahuan";
-        return view('admin/pemberitahuan', $x);
+        return view('admin.pemberitahuan', $x);
     }
 
     public function update(Request $request)

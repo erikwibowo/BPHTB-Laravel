@@ -20,6 +20,6 @@ class KabupatenController extends Controller
                 ->make(true);
         }
         $x['title'] = "Data Kabupaten";
-        return view('admin/kabupaten', $x);
+        return view('admin.kabupaten', $x);
     }
 }

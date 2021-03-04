@@ -11,7 +11,7 @@ class PengaturanController extends Controller
     public function index(){
         $x['title'] = "Data Pengaturan";
         $x['data']  = Pengaturan::where('id_pengaturan', 1)->first();
-        return view('admin/pengaturan', $x);
+        return view('admin.pengaturan', $x);
     }
 
     public function update(Request $request)

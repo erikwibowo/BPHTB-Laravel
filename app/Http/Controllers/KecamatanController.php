@@ -23,6 +23,6 @@ class KecamatanController extends Controller
                 ->make(true);
         }
         $x['title'] = "Data Kecamatan";
-        return view('admin/kecamatan', $x);
+        return view('admin.kecamatan', $x);
     }
 }

@@ -62,6 +62,6 @@ class BillingController extends Controller
         }
         $x['title'] = "Data Billing ".Str::ucfirst(str_replace("-", " ", $request->segment(3)));
         $x['url']   = $url;
-        return view('admin/billing', $x);
+        return view('admin.billing', $x);
     }
 }
