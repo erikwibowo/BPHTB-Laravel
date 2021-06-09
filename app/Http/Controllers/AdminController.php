@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
@@ -13,7 +14,7 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Admin::orderBy('login_at', 'desc');
+            $data = DB::select("SELECT * FROM tb_admin");
             return DataTables::of($data)
                 ->addColumn('action', function ($row) {
                     $btn = '<div class="btn-group"><button type="button" data-id="' . $row->id_admin . '" class="btn btn-primary btn-sm btn-edit"><i class="fa fa-eye"></i></button><button type="button" data-id="' . $row->id_admin . '" data-name="' . $row->nama_admin . '" class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash"></i></button></div>';
@@ -28,6 +29,7 @@ class AdminController extends Controller
                     return $aktif;
                 })
                 ->rawColumns(['action', 'aktif'])
+                ->addIndexColumn()
                 ->make(true);
         }
         $x['title'] = "Data Admin";

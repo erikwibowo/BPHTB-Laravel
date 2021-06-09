@@ -14,6 +14,7 @@
                     <table class="table table-bordered table-hover table-striped datatable yajra-datatable" style="width: 100%">
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Nama</th>
                                 <th>Username</th>
                                 <th>Level</th>
@@ -37,8 +38,10 @@
         var table = $('.yajra-datatable').DataTable({
             processing: true,
             serverSide: true,
+            order: [],
             ajax: "{{ route('admin.admin.index') }}",
             columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                 { data: 'nama_admin', name: 'nama_admin'},
                 { data: 'username', name: 'username'},
                 { data: 'level', name: 'level' },
